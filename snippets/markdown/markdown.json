@@ -1,0 +1,104 @@
+{
+  "HTML kbd tag": {
+    "prefix": ["k1", "kbd"],
+    "body": ["<kbd>${1:KEY}</kbd>$0"],
+    "description": "HTML kbd tag"
+  },
+  "Two key strokes shortcut": {
+    "prefix": "k2",
+    "body": ["<kbd>${1:KEY}</kbd> + <kbd>${2:KEY}</kbd>"],
+    "description": "Insert two key strokes shortcut"
+  },
+  "Three key strokes shortcut": {
+    "prefix": "k3",
+    "body": ["<kbd>${1:KEY}</kbd> + <kbd>${2:KEY}</kbd> + <kbd>${3:KEY}</kbd>"],
+    "description": "Insert three key strokes shortcut"
+  },
+  "Markdown front matter": {
+    "prefix": "meta",
+    "body": [
+      "---",
+      "title: \"$1\"",
+      "date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND$CURRENT_TIMEZONE_OFFSET",
+      "tags: [$2]",
+      "categories: [$3]",
+      "---",
+      "$0"
+    ],
+    "description": "Insert Markdown front matter in YAML format"
+  },
+  "HTML more tag": {
+    "prefix": "more",
+    "body": ["<!--more-->"],
+    "description": "Insert HTML more tag"
+  },
+  "Centered image": {
+    "prefix": "img",
+    "body": [
+      "<p align=\"center\">",
+      "<img src=\"${1:URL}\" width=\"${2:800}\">",
+      "</p>",
+      "$0"
+    ],
+    "description": "Insert centered image using HTML tag"
+  },
+  "HTML font tag": {
+    "prefix": "font",
+    "body": ["<font color=\"${1:blue}\">${2:TEXT}</font>"],
+    "description": "Insert HTML font tag with color"
+  },
+  "Markdown link": {
+    "prefix": "link",
+    "body": ["[$1]($2)$0"],
+    "description": "Insert Markdown link"
+  },
+  "Markdown header": {
+    "prefix": ["h1", "h2", "h3", "h4", "h5", "h6"],
+    "body": ["$TM_CURRENT_LINE$0"],
+    "description": "Insert Markdown header (level 1-6)"
+  },
+  "Clickable details": {
+    "prefix": "detail",
+    "body": [
+      "<details>",
+      "<summary><font size=\"2\" color=\"red\">${1:Click to show the code.}</font></summary>",
+      "$2",
+      "</details>"
+    ],
+    "description": "Insert clickable details section"
+  },
+  "Chinese corner quotes": {
+    "prefix": "yh",
+    "body": ["「$1」"],
+    "description": "Insert Chinese corner quotes"
+  },
+  "Info box": {
+    "prefix": "info",
+    "body": [
+      "<style type=\"text/css\">",
+      "@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');",
+      ".info-msg {",
+      "\tcolor: #059;",
+      "\tbackground-color: #BEF;",
+      "\tmargin: 5px 0;",
+      "\tmargin-bottom: 20px;",
+      "\tpadding: 10px;",
+      "\tborder-radius: 5px 5px 5px 5px;",
+      "\tborder: 2px solid transparent;",
+      "\tborder-color: transparent;",
+      "}",
+      "</style>",
+      "<div class=\"info-msg\">",
+      "\t<i class=\"fa fa-info-circle\"> Info</i></br>",
+      "\t${1:info text}",
+      "</div>",
+      "$0"
+    ],
+    "description": "Insert info message box"
+  },
+  "TL;DR": {
+    "prefix": "td",
+    "body": ["tl;dr: $1"],
+    "description": "Insert TL;DR section"
+  }
+}
