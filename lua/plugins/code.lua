@@ -8,31 +8,31 @@ return {
     },
   },
   -- Go forward/backward with square brackets
-  {
-    "echasnovski/mini.bracketed",
-    event = "BufReadPost",
-    config = function()
-      local bracketed = require("mini.bracketed")
-      bracketed.setup({
-        file = { suffix = "" },
-        window = { suffix = "" },
-        quickfix = { suffix = "" },
-        yank = { suffix = "" },
-        treesitter = { suffix = "n" },
-      })
-    end,
-  },
-  {
-    "ThePrimeagen/refactoring.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    lazy = false,
-    config = function()
-      require("refactoring").setup()
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.bracketed",
+  --   event = "BufReadPost",
+  --   config = function()
+  --     local bracketed = require("mini.bracketed")
+  --     bracketed.setup({
+  --       file = { suffix = "" },
+  --       window = { suffix = "" },
+  --       quickfix = { suffix = "" },
+  --       yank = { suffix = "" },
+  --       treesitter = { suffix = "n" },
+  --     })
+  --   end,
+  -- },
+  -- -- {
+  --   "ThePrimeagen/refactoring.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   lazy = false,
+  --   config = function()
+  --     require("refactoring").setup()
+  --   end,
+  -- },
   {
     "PedramNavid/dbtpal",
     dependencies = {

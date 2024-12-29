@@ -4,8 +4,19 @@
 --
 -- LSP Server to use for Python.
 -- Set to "basedpyright" to use basedpyright instead of pyright.
+
+--vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.g.lazyvim_python_lsp = "pyright"
 vim.g.lazyvim_python_ruff = "ruff_lsp"
+
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+--   border = "rounded",
+--   focusable = false,
+--   silent = true,
+--   max_height = 4,
+-- })
+--
+
 --
 vim.opt.conceallevel = 0
 vim.g.vim_markdown_folding_disabled = 1

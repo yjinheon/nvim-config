@@ -3,19 +3,28 @@
 -- Add any additional keymaps here
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
+
 -- w : move forward by word
 -- b : move backward by word
+
+-- toggle lsp diagnostics
+
+map("n", "<leader>td", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)
 
 --snipe menu
 --markdown preview
 
 map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
 -- toggle transparency
-map("n", "<leader>tt", "<cmd> TransparentToggle <CR>")
+-- map("n", "<leader>tt", "<cmd> TransparentToggle <CR>")
+
+map("n", "<leader>tt", ":silent !~/bash_utils/toggle_opacity.sh<CR>", { noremap = true, silent = true })
 -- shift b to open neotree
 map("n", "<S-b>", "<cmd> Neotree toggle <CR>")
 -- live_grep cwd
-map("n", "<leader>fw", LazyVim.pick("live_grep", { root = false }))
+map("n", "<leader>fw", LazyVim.pick("live_grep", { root = true }))
 -- cycle through buffers
 map("n", "<TAB>", "<cmd> bnext <CR>")
 map("n", "<S-TAB>", "<cmd> bprevious <CR>")
@@ -24,7 +33,7 @@ map("n", "<leader>q", "<cmd> bd <CR>")
 -- leader sr to search and replace
 -- toggle comments
 map("n", "<leader>.", function()
-    require("Comment.api").toggle.linewise.current()
+  require("Comment.api").toggle.linewise.current()
 end)
 map("v", "<leader>.", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 -- dap toggle breakpoints
@@ -60,10 +69,10 @@ map("t", "<F12>", "<C-\\><C-n>:FloatermToggle aTerm<CR>", { noremap = true })
 -- run program infile
 
 map(
-    "n",
-    "<F5>",
-    ":exec '!/home/jinheonyoon/anaconda3/envs/neural-net/bin/python3' shellescape(@%, 1)<CR>",
-    { noremap = true }
+  "n",
+  "<F5>",
+  ":exec '!/home/jinheonyoon/anaconda3/envs/neural-net/bin/python3' shellescape(@%, 1)<CR>",
+  { noremap = true }
 )
 map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F7>", ":exec '!java' shellescape(@%, 1)<CR>", { noremap = true })

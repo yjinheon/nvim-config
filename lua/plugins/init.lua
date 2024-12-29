@@ -1,3 +1,12 @@
+--require("config.lazy")
+--require("luasnip/loaders/from_vscode").lazy_load()
+
+--local snip_loader = require("luasnip/loaders/from_vscode")
+--snip_loader.lazy_load()
+--snip_loader.load({ paths = { "~/.config/nvim/snippets" } })
+
+-- set clipboard=unnamedplus
+
 return {
   -- {
   --   "stevearc/conform.nvim",
@@ -103,46 +112,11 @@ return {
   -- },
   {
     "L3MON4D3/LuaSnip",
-    keys = function()
-      return {}
-    end,
-  },
-  {
-    "folke/noice.nvim",
     lazy = false,
-    enabled = true,
-    opts = {
-      views = {
-        cmdline_popup = {
-          position = {
-            row = 20,
-            col = "50%",
-          },
-          size = {
-            width = 60,
-            height = "auto",
-          },
-        },
-        popupmenu = {
-          relative = "editor",
-          position = {
-            row = 8,
-            col = "50%",
-          },
-          size = {
-            width = 60,
-            height = 10,
-          },
-          border = {
-            style = "rounded",
-            padding = { 0, 1 },
-          },
-          win_options = {
-            winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-          },
-        },
-      },
-    },
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp",
   },
   -- noice.nvim
   -- {
@@ -230,18 +204,18 @@ return {
       },
     },
   },
-  -- {
-  --   "garymjr/nvim-snippets",
-  --   opts = {
-  --     friendly_snippets = false,
-  --   },
-  --   dependencies = { "rafamadriz/friendly-snippets" },
-  -- },
   {
-    "VonHeikemen/fine-cmdline.nvim",
-    lazy = false,
-    enabled = true,
+    "garymjr/nvim-snippets",
+    opts = {
+      friendly_snippets = false,
+    },
+    dependencies = { "rafamadriz/friendly-snippets" },
   },
+  -- {
+  --   "VonHeikemen/fine-cmdline.nvim",
+  --   lazy = false,
+  --   enabled = true,
+  -- },
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
@@ -269,30 +243,6 @@ return {
   },
 
   -- These are some examples, uncomment them if you want to see them work!
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        pyright = {},
-      },
-    },
-  },
-  --
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "html-lsp",
-        "css-lsp",
-        "prettier",
-        "pyright",
-        "typescript-language-server",
-        "flake8",
-      },
-    },
-  },
   {
     "ahmedkhalf/project.nvim",
     opts = {

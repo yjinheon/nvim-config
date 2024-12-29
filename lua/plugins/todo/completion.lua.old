@@ -3,7 +3,6 @@ return {
     "hrsh7th/nvim-cmp",
     lazy = false,
     dependancies = {
-      "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
@@ -13,18 +12,18 @@ return {
       "L3MON4D3/LuaSnip",
       "",
     },
-    config = {
-      enabled = function()
-        local context = require("cmp.config.context")
-        local disabled = false
-        disabled = disabled or (vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt")
-        disabled = disabled or (vim.fn.reg_recording() ~= "")
-        disabled = disabled or (vim.fn.reg_executing() ~= "")
-        disabled = disabled or context.in_treesitter_capture("comment")
-        return not disabled
-      end,
-    },
-    event = "InsertEnter",
+    -- config = {
+    --   enabled = function()
+    --     local context = require("cmp.config.context")
+    --     local disabled = false
+    --     disabled = disabled or (vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt")
+    --     disabled = disabled or (vim.fn.reg_recording() ~= "")
+    --     disabled = disabled or (vim.fn.reg_executing() ~= "")
+    --     disabled = disabled or context.in_treesitter_capture("comment")
+    --     return not disabled
+    --   end,
+    -- },
+    -- event = "InsertEnter",
     opts = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
@@ -54,26 +53,27 @@ return {
 
       return {
         completion = {
-          completeopt = "menu,menuone,noinsert,noselect",
+          --completeopt = "menu,menuone,noinsert,noselect",
+          completeopt = "menuone,noinsert,noselect",
           autocomplete = false,
         },
-        preselect = cmp.PreselectMode.None,
+        --        preselect = cmp.PreselectMode.None,
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
           end,
         },
-        format = function(entry, vim_item)
-          vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
-          vim_item.menu = ({
-            nvim_lsp = "[LSP]",
-            buffer = "[Buffer]",
-            path = "[Path]",
-            luasnip = "[LuaSnip]",
-            treesitter = "[Treesitter]",
-          })[entry.source.name]
-          return vim_item
-        end,
+        -- format = function(entry, vim_item)
+        --   vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+        --   vim_item.menu = ({
+        --     nvim_lsp = "[LSP]",
+        --     buffer = "[Buffer]",
+        --     path = "[Path]",
+        --     luasnip = "[LuaSnip]",
+        --     treesitter = "[Treesitter]",
+        --   })[entry.source.name]
+        --   return vim_item
+        -- end,
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -134,38 +134,10 @@ return {
           --          { name = "luasnip", max_item_count = 3 },
           { name = "treesitter", max_item_count = 5 },
         }),
-        --     formatting = {
-        --       format = function(_, item)
-        --         local icons = require("lazyvim.config").icons.kinds
-        --         if icons[item.kind] then
-        --           item.kind = icons[item.kind] .. item.kind
-        --         end
-        --         return item
-        --       end,
-        --     },
-        window = {
-          completion = cmp.config.window.bordered({
-            border = "double",
-            --          winhighlight = "Normal:MyNormal,FloatBorder:MyFloatBorder,CursorLine:MycursorLine,Search:None"
-          }),
-        },
-        --       formatting = {
-        --         fields = { "menu", "abbr", "kind" },
-        --         format = function(entry, item)
-        --           local menu_icon = {
-        --             nvim_lsp = "λ",
-        --             luasnip = "⋗",
-        --             buffer = "Ω",
-        --             path = "🖫",
-        --           }
-        --           item.menu = menu_icon[entry.source.name]
-        --           return item
-        --         end,
-        --       },andA
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text", -- show only symbol annotations
-            preset = "codicons",
+            --            preset = "codicons",
             maxwidth = {
               -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
               -- can also be a function to dynamically calculate max width such as
@@ -174,7 +146,7 @@ return {
               abbr = 50, -- actual suggestion item
             },
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-            show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+            show_labelDetails = false, -- show labelDetails in menu. Disabled by default
 
             -- The function below will be called before any actual modifications from lspkind
             -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
@@ -183,11 +155,6 @@ return {
               return vim_item
             end,
           }),
-        },
-        experimental = {
-          ghost_text = {
-            hl_group = "LspCodeLens",
-          },
         },
       }
     end,
