@@ -1,4 +1,4 @@
--- Keymaps are automatically loaded on the VeryLazy event
+-- Keymaps are automatically loaded on the VeryLazy t
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local map = vim.keymap.set
@@ -78,13 +78,13 @@ map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F7>", ":exec '!java' shellescape(@%, 1)<CR>", { noremap = true })
 -- run node js
 map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
-map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
+--map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 -- disable copilot
 map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
-map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
+--map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
 --map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
-map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true }) --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
+--map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true }) --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
 
 --- Increment / decrement
 

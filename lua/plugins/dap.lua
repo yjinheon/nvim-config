@@ -20,9 +20,17 @@ local default_config = {
   dap = {
     keys = {
       {"<leader>d", "", desc = "+Debug" },
-      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-      { "<leader>dc", function() require("dap").run_to_cursor() end, desc = "Continue" },
-      { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+    --  { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+     -- { "<leader>dc", function() require("dap").run_to_cursor() end, desc = "Continue" },
+     -- vim.keymap.set('n', '<F5>', require 'dap'.continue)
+     -- vim.keymap.set('n', '<F10>', require 'dap'.step_over)
+     -- vim.keymap.set('n', '<F11>', require 'dap'.step_into)
+     -- vim.keymap.set('n', '<F12>', require 'dap'.step_out)
+     -- vim.keymap.set('n', '<leader>b', require 'dap'.toggle_breakpoint)
+     --step over : 한줄을 실행합니다. 함수가 있어도 실행 후 다음으로 넘어갑니다.
+     --step into : 함수 내부로 들어갑니다.
+     --step out : 함수를 끝까지 실행시키고 호출시킨 곳으로 되돌아 갑니다.
+       { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
       { "<leader>dn", function() require("dap").step_over() end, desc = "Step Over" },
       { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
       { "<leader>du", function() require("dap").up() end, desc = "Up" },
@@ -49,7 +57,7 @@ local default_config = {
   },
   dap_python = {
     keys = {
-      { "<F2>", function() require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
+      { "<F10>", function() require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
       { "<leader>dpc", function() require("dap-python").test_class() end, desc = "Debug Class", ft = "python" },
       { "<leader>dps", function() require('dap-python').debug_selection() end, desc = "Debug Selection", ft = "python" }
     },

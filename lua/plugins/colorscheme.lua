@@ -105,11 +105,12 @@ return {
       --     colorscheme = "doomchad",
       --colorscheme = "nightfox",
       --      colorscheme = "tokyonight-moon",
-      --colorscheme = "tokyonight-storm",
+      colorscheme = "tokyonight-storm",
       --colorscheme = "tokyonight-day",
       --colorscheme = "tokyonight-night",
       --     colorscheme = "kanagawa",
       --colorscheme = "catppuccin",
+      --colorscheme = "monekai",
       -- colorscheme = "monokai-nightasty", -- or "gruvbox" --catppuccin fr:w
       --colorscheme = "neofusion",
       --colorscheme = "nightfox",
