@@ -16,6 +16,29 @@ return {
   --   end,
   -- },
   {
+    "nvim-java/nvim-java",
+    config = false,
+    dependencies = {
+      {
+        "neovim/nvim-lspconfig",
+        opts = {
+          servers = {
+            jdtls = {
+              -- Your custom jdtls settings goes here
+            },
+          },
+          setup = {
+            jdtls = function()
+              require("java").setup({
+                -- Your custom nvim-java configuration goes here
+              })
+            end,
+          },
+        },
+      },
+    },
+  },
+  {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
     config = function()
@@ -105,11 +128,11 @@ return {
     lazy = false,
     enabled = true,
   },
-  -- {
-  --   "liuchengxu/vista.vim",
-  --   lazy = false,
-  --   enabled = true,
-  -- },
+  {
+    "liuchengxu/vista.vim",
+    lazy = false,
+    enabled = true,
+  },
   {
     "L3MON4D3/LuaSnip",
     lazy = false,

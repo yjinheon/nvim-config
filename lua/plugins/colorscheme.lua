@@ -1,6 +1,15 @@
 return {
   -- add onenord
   { "rmehri01/onenord.nvim" },
+  {
+    "philosofonusus/morta.nvim",
+    name = "morta",
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.cmd.colorscheme("morta")
+    end,
+  },
   { "notken12/base46-colors" },
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
@@ -105,7 +114,8 @@ return {
       --     colorscheme = "doomchad",
       --colorscheme = "nightfox",
       --      colorscheme = "tokyonight-moon",
-      colorscheme = "tokyonight-storm",
+      --colorscheme = "tokyonight-storm",
+      colorscheme = "morta",
       --colorscheme = "tokyonight-day",
       --colorscheme = "tokyonight-night",
       --     colorscheme = "kanagawa",

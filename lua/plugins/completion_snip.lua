@@ -40,6 +40,12 @@ return {
         }),
       }
 
+      opts.completion = {
+        --completeopt = "menu,menuone,noinsert,noselect",
+        completeopt = "menu,menuone,noinsert,noselect",
+        --autocomplete = false,
+      }
+
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),

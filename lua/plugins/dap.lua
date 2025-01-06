@@ -35,7 +35,7 @@ local default_config = {
       { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
       { "<leader>du", function() require("dap").up() end, desc = "Up" },
       { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-      { "<leader>dS", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+--      { "<leader>dS", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
       { "<leader>ds", function() require("dap").continue() end, desc = "Run" },
       { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor", },
       { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
