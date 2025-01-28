@@ -7,3 +7,6 @@ foo.*
 *.log
 data
 .env
+
+lazy-lock.json
+lazyvim.json

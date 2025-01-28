@@ -16,29 +16,6 @@ return {
   --   end,
   -- },
   {
-    "nvim-java/nvim-java",
-    config = false,
-    dependencies = {
-      {
-        "neovim/nvim-lspconfig",
-        opts = {
-          servers = {
-            jdtls = {
-              -- Your custom jdtls settings goes here
-            },
-          },
-          setup = {
-            jdtls = function()
-              require("java").setup({
-                -- Your custom nvim-java configuration goes here
-              })
-            end,
-          },
-        },
-      },
-    },
-  },
-  {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
     config = function()
@@ -61,7 +38,7 @@ return {
     dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
     opts = {
       -- Your options go here
-      -- name = "venv",
+      name = { "venv", ".venv" },
       -- auto_refresh = false
     },
     event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping

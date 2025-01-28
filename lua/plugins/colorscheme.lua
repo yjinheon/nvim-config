@@ -14,14 +14,14 @@ return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
   -- add catppuccin
-  -- {
-  --   "catppuccin/nvim",
-  --   name = "catppuccin",
-  --   priority = 1000,
-  --   opts = {
-  --     flavour = "mocha", --latte, frappe, macchiato,mocha
-  --   },
-  -- },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      flavour = "frappe", --latte, frappe, macchiato,mocha
+    },
+  },
   { "diegoulloao/neofusion.nvim", priority = 1000, config = true, opts = ... },
   {
     "xiyaowong/transparent.nvim",
@@ -111,17 +111,19 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      --     colorscheme = "doomchad",
+      --      colorscheme = "solarized-osaka",
+      --      colorscheme = "doomchad",
       --colorscheme = "nightfox",
       --      colorscheme = "tokyonight-moon",
       --colorscheme = "tokyonight-storm",
-      colorscheme = "morta",
+      --      colorscheme = "morta",
       --colorscheme = "tokyonight-day",
       --colorscheme = "tokyonight-night",
       --     colorscheme = "kanagawa",
       --colorscheme = "catppuccin",
       --colorscheme = "monekai",
       -- colorscheme = "monokai-nightasty", -- or "gruvbox" --catppuccin fr:w
+      colorscheme = "catppuccin",
       --colorscheme = "neofusion",
       --colorscheme = "nightfox",
       -- colorscheme = "dracula"

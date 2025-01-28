@@ -24,7 +24,7 @@ map("n", "<leader>tt", ":silent !~/bash_utils/toggle_opacity.sh<CR>", { noremap 
 -- shift b to open neotree
 map("n", "<S-b>", "<cmd> Neotree toggle <CR>")
 -- live_grep cwd
-map("n", "<leader>fw", LazyVim.pick("live_grep", { root = true }))
+--map("n", "<leader>fw", LazyVim.pick("live_grep", { root = true }))
 -- cycle through buffers
 map("n", "<TAB>", "<cmd> bnext <CR>")
 map("n", "<S-TAB>", "<cmd> bprevious <CR>")
@@ -83,7 +83,7 @@ map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
 map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
 --map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
---map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
+map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true }) --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
 
 --- Increment / decrement
