@@ -2,7 +2,10 @@ return {
   "HakonHarnes/img-clip.nvim",
   event = "VeryLazy",
   opts = {
-    dir_path = "static/images",
+    default = {
+      -- file and directory options
+      dir_path = "static/images",
+    },
   },
   keys = {
     -- suggested keymap

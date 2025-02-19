@@ -78,7 +78,7 @@ map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F7>", ":exec '!java' shellescape(@%, 1)<CR>", { noremap = true })
 -- run node js
 map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
---map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
+map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 -- disable copilot
 map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
