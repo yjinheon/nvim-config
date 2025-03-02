@@ -55,4 +55,7 @@ return {
       },
     },
   },
+  {
+    "ojroques/vim-oscyank",
+  },
 }

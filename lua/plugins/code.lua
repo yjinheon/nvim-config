@@ -7,7 +7,7 @@ return {
       position = "right",
     },
   },
-  { "cordx56/rustowl", dependencies = { "neovim/nvim-lspconfig" } },
+  { "cordx56/rustowl", dependencies = { "neovim/nvim-lspconfig" }, lazy = false },
   -- Go forward/backward with square brackets
   -- {
   --   "echasnovski/mini.bracketed",
