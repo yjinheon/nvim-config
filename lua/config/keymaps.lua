@@ -123,21 +123,26 @@ map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 --map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true }) --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
 
--- Kotlin 파일을 컴파일하고 실행
 function RunKotlinInSplit()
   local win_height = vim.fn.winheight(0)
   local split_size = math.floor(win_height / 4)
   local file = vim.fn.expand("%")
+
   vim.cmd(split_size .. "split")
-  -- 커스텀 명령어 생성
+
+  -- 커스텀 명령어 생성 (마지막에 bash 셸 유지)
   local cmd = [[
   echo "Compiling.. please wait...";
-  kotlinc "]] .. file .. [[" -include-runtime -d out.jar;
+  kotlinc "]] .. file .. [[" -include-runtime -d out.jar && 
+  echo "Running program..." &&
   java -jar out.jar;
-  rm out.jar
+  echo "";
+  echo "Program execution finished. Press Enter to close this window.";
+  rm out.jar;
+  read
   ]]
 
-  vim.cmd("terminal " .. cmd)
+  vim.cmd("terminal bash -c " .. vim.fn.shellescape(cmd))
 end
 
 map("n", "<F11>", function()
