@@ -17,7 +17,21 @@ vim.g.lazyvim_python_ruff = "ruff_lsp"
 -- })
 --
 
---
+-- vim-visual-multi
+-- vim.g.VM_maps = {
+--   -- Set 'Find Under' to <C-d> (replacing default <C-n>)
+--   ["Find Under"] = "<C-d>",
+--   -- Set 'Find Subword Under' to <C-d> (replacing default visual <C-n>)
+--   ["Find Subword Under"] = "<C-d>",
+-- }
+
+-- only format . no add or remove imports
+-- no foramt on save
+-- init.lua 파일에 추가 (Lua 사용 시)
+vim.g.go_fmt_autosave = 0
+-- 또는 gopls 설정을 사용하는 경우
+vim.g.go_gopls_gofumpt = 0
+
 vim.opt.conceallevel = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.opt.clipboard = "unnamedplus,unnamed"

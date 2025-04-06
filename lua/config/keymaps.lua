@@ -14,6 +14,10 @@ map("n", "<leader>td", function()
 end)
 
 --snipe menu
+map("n", "<leader>e", function()
+  require("snipe").open_buffer_menu()
+end, { noremap = true, silent = true })
+
 --markdown preview
 
 map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
@@ -68,14 +72,47 @@ map("t", "<F12>", "<C-\\><C-n>:FloatermToggle aTerm<CR>", { noremap = true })
 
 -- run program infile
 
-map(
-  "n",
-  "<F5>",
-  ":exec '!/home/jinheonyoon/anaconda3/envs/neural-net/bin/python3' shellescape(@%, 1)<CR>",
-  { noremap = true }
-)
-map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
+-- Python 파일을 터미널에서 실행하는 함수
+function RunPythonInSplit()
+  local win_height = vim.fn.winheight(0)
+  local split_size = math.floor(win_height / 4)
+
+  vim.cmd(split_size .. "split")
+  vim.cmd("terminal python3 %")
+end
+
+-- F5 키에 매핑
+map("n", "<F5>", function()
+  vim.cmd("w") -- 파일 저장
+  RunPythonInSplit()
+end, { noremap = true })
+
+-- Go 파일을 터미널에서 실행하는 함수
+function RunGoInSplit()
+  local win_height = vim.fn.winheight(0)
+  local split_size = math.floor(win_height / 4)
+
+  vim.cmd(split_size .. "split")
+  vim.cmd("terminal go run %")
+end
+
+-- F6 키에 매핑
+vim.keymap.set("n", "<F6>", function()
+  vim.cmd("w") -- 파일 저장
+  RunGoInSplit()
+end, { noremap = true })
+
+--map(
+--  "n",
+--  "<F5>",
+--  ":exec '!/home/jinheonyoon/anaconda3/envs/neural-net/bin/python3' shellescape(@%, 1)<CR>",
+--  { noremap = true }
+--)
+
+--map("n", "<F6>", ":w<CR>:lua RunGoFile()<CR>", { noremap = true, silent = false })
+--map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F7>", ":exec '!java' shellescape(@%, 1)<CR>", { noremap = true })
+
 -- run node js
 map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
 map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
@@ -83,8 +120,34 @@ map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
 --map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
-map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
+--map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true }) --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
+
+
+-- Kotlin 파일을 컴파일하고 실행
+function RunKotlinInSplit()
+  local win_height = vim.fn.winheight(0)
+  local split_size = math.floor(win_height / 4)
+  local file = vim.fn.expand('%')
+  
+  vim.cmd(split_size .. 'split')
+  
+  -- 커스텀 명령어 생성
+  local cmd = [[
+  echo "Compiling.. please wait...";
+  kotlinc "]] .. file .. [[" -include-runtime -d out.jar;
+  java -jar out.jar;
+  rm out.jar
+  ]]
+
+  vim.cmd("terminal " .. cmd)
+end
+
+
+map.("n", "<F11>", function()
+  vim.cmd("w") -- 파일 저장
+  RunKotlinInSplit()
+end, { noremap = true })
 
 --- Increment / decrement
 
@@ -103,6 +166,14 @@ map("n", "<leader>sh", ":split<Return>", opts)
 map("n", "<leader>sv", ":vsplit<Return>", opts)
 map("n", "<leader>se", "<C-w>=", { noremap = true, desc = "equalize window" })
 map("n", "<leader>sx", "<cmd>close<CR>", { desc = "close current window" })
+
+map("i", ",s", "<ESC>", {})
+map("", ",s", "<ESC>:w<CR>", {})
+map("", "s,", "<ESC>:w<CR>", {})
+map("", ",q", "<ESC>:bd<cr>", {})
+map("", "<c-q>", "<ESC>:qa<cr>", {})
+
+map("n", ";", ":", {})
 
 --move window
 -- map("n", "sh", "<C-w>h")

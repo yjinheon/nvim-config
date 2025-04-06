@@ -1,4 +1,9 @@
 return {
+
+  {
+    "mg979/vim-visual-multi",
+    enabled = true,
+  },
   {
     "MeanderingProgrammer/render-markdown.nvim",
     --lazy = true,
