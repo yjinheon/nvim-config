@@ -73,12 +73,18 @@ map("t", "<F12>", "<C-\\><C-n>:FloatermToggle aTerm<CR>", { noremap = true })
 -- run program infile
 
 -- Python 파일을 터미널에서 실행하는 함수
+
 function RunPythonInSplit()
   local win_height = vim.fn.winheight(0)
   local split_size = math.floor(win_height / 4)
-
+  -- 절대 경로 사용 (%:p 수정자)
+  local file = vim.fn.expand("%:p")
   vim.cmd(split_size .. "split")
-  vim.cmd("terminal python3 %")
+  -- 터미널 종료 후 자동으로 버퍼 닫기 설정
+  vim.cmd("autocmd! TermClose <buffer> bdelete!")
+  -- vim.cmd("terminal python3  " .. vim.fn.shellescape(file))
+  vim.cmd('terminal python3 "' .. file .. '"')
+  vim.cmd("startinsert")
 end
 
 -- F5 키에 매핑
@@ -87,13 +93,15 @@ map("n", "<F5>", function()
   RunPythonInSplit()
 end, { noremap = true })
 
--- Go 파일을 터미널에서 실행하는 함수
+-- -- Go 파일을 터미널에서 실행하는 함수
 function RunGoInSplit()
   local win_height = vim.fn.winheight(0)
   local split_size = math.floor(win_height / 4)
-
+  local file = vim.fn.expand("%:p")
   vim.cmd(split_size .. "split")
-  vim.cmd("terminal go run %")
+  vim.cmd("autocmd! TermClose <buffer> bdelete!")
+  vim.cmd('terminal go run "' .. file .. '"')
+  vim.cmd("startinsert")
 end
 
 -- F6 키에 매핑
@@ -102,13 +110,7 @@ vim.keymap.set("n", "<F6>", function()
   RunGoInSplit()
 end, { noremap = true })
 
---map(
---  "n",
---  "<F5>",
---  ":exec '!/home/jinheonyoon/anaconda3/envs/neural-net/bin/python3' shellescape(@%, 1)<CR>",
---  { noremap = true }
---)
-
+--map("n", "<F5>", "<cmd>python3 shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F6>", ":w<CR>:lua RunGoFile()<CR>", { noremap = true, silent = false })
 --map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F7>", ":exec '!java' shellescape(@%, 1)<CR>", { noremap = true })
@@ -118,6 +120,7 @@ map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
 map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 -- disable copilot
 map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
+
 -- run python test method
 --map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
 --map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
@@ -126,7 +129,7 @@ map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 function RunKotlinInSplit()
   local win_height = vim.fn.winheight(0)
   local split_size = math.floor(win_height / 4)
-  local file = vim.fn.expand("%")
+  local file = vim.fn.expand("%:p")
 
   vim.cmd(split_size .. "split")
 
@@ -163,6 +166,7 @@ map("n", "<C-a>", "gg<S-v>G")
 map("n", "<C-m>", "<C-i>")
 
 --split window
+
 map("n", "<leader>sh", ":split<Return>", opts)
 map("n", "<leader>sv", ":vsplit<Return>", opts)
 map("n", "<leader>se", "<C-w>=", { noremap = true, desc = "equalize window" })
