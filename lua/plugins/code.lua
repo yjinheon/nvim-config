@@ -7,6 +7,52 @@ return {
       position = "right",
     },
   },
+  -- {
+  --   "mhartington/formatter.nvim",
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   config = function()
+  --     local types = "formatter.filetypes."
+  --     require("formatter").setup({
+  --       filetype = {
+  --         python = {
+  --           require(types .. "python").ruff,
+  --           require(types .. "python").isort,
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   opts = function()
+  --     local opts = {
+  --       formatters_by_ft = {
+  --         lua = { "stylua" },
+  --         python = { "ruff" },
+  --         javascript = { "prettier" },
+  --         typescript = { "prettier" },
+  --         javascriptreact = { "prettier" },
+  --         typescriptreact = { "prettier" },
+  --         sh = { "shfmt" },
+  --         css = { "prettier" },
+  --         html = { "prettier" },
+  --         json = { "prettier" },
+  --         yaml = { "prettier" },
+  --         markdown = { "prettier" },
+  --         graphql = { "prettier" },
+  --       },
+  --       formatters = {
+  --         prettier = {
+  --           prepend_args = { "--single-quote" },
+  --         },
+  --       },
+  --     }
+  --     return opts
+  --   end,
+  -- },
+  --
+  --
   { "cordx56/rustowl", dependencies = { "neovim/nvim-lspconfig" }, lazy = false },
   -- Go forward/backward with square brackets
   -- {
