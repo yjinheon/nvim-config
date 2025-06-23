@@ -72,30 +72,6 @@
     "body": ["「$1」"],
     "description": "Insert Chinese corner quotes"
   },
-  "Info box": {
-    "prefix": "info",
-    "body": [
-      "<style type=\"text/css\">",
-      "@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');",
-      ".info-msg {",
-      "\tcolor: #059;",
-      "\tbackground-color: #BEF;",
-      "\tmargin: 5px 0;",
-      "\tmargin-bottom: 20px;",
-      "\tpadding: 10px;",
-      "\tborder-radius: 5px 5px 5px 5px;",
-      "\tborder: 2px solid transparent;",
-      "\tborder-color: transparent;",
-      "}",
-      "</style>",
-      "<div class=\"info-msg\">",
-      "\t<i class=\"fa fa-info-circle\"> Info</i></br>",
-      "\t${1:info text}",
-      "</div>",
-      "$0"
-    ],
-    "description": "Insert info message box"
-  },
   "TL;DR": {
     "prefix": "td",
     "body": ["tl;dr: $1"],

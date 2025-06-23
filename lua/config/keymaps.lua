@@ -13,18 +13,16 @@ map("n", "<leader>td", function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
 
---snipe menu
-map("n", "<leader>e", function()
-  require("snipe").open_buffer_menu()
-end, { noremap = true, silent = true })
-
 --markdown preview
-
 map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
+
+--snipe menu
+
 -- toggle transparency
 -- map("n", "<leader>tt", "<cmd> TransparentToggle <CR>")
 
 map("n", "<leader>tt", ":silent !~/bash_utils/toggle_opacity.sh<CR>", { noremap = true, silent = true })
+
 -- shift b to open neotree
 map("n", "<S-b>", "<cmd> Neotree toggle <CR>")
 -- live_grep cwd
@@ -40,6 +38,40 @@ map("n", "<leader>.", function()
   require("Comment.api").toggle.linewise.current()
 end)
 map("v", "<leader>.", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
+
+--- Increment / decrement
+
+map("n", "+", "<C-a>")
+map("n", "-", "<C-x>")
+
+-- delete a word backwards
+map("n", "dw", "vb_d")
+-- select all
+map("n", "<C-a>", "gg<S-v>G")
+--jumptist
+map("n", "<C-m>", "<C-i>")
+
+--split window
+
+map("n", "<leader>sh", ":split<Return>", opts)
+map("n", "<leader>sv", ":vsplit<Return>", opts)
+map("n", "<leader>se", "<C-w>=", { noremap = true, desc = "equalize window" })
+map("n", "<leader>sx", "<cmd>close<CR>", { desc = "close current window" })
+
+-- extra
+
+map("i", ",s", "<ESC>", {})
+map("", ",s", "<ESC>:w<CR>", {})
+map("", "s,", "<ESC>:w<CR>", {})
+map("", ",q", "<ESC>:bd<cr>", {})
+map("", "<c-q>", "<ESC>:qa<cr>", {})
+
+map("n", ";", ":", {})
+
+map("n", "<leader>e", function()
+  require("snipe").open_buffer_menu()
+end, { noremap = true, silent = true })
+
 -- dap toggle breakpoints
 map("n", "<F1>", "<cmd> DapToggleBreakpoint <CR>")
 --map("n", "<leader>dpr", function()
@@ -152,33 +184,6 @@ map("n", "<F11>", function()
   vim.cmd("w") -- 파일 저장
   RunKotlinInSplit()
 end, { noremap = true })
-
---- Increment / decrement
-
-map("n", "+", "<C-a>")
-map("n", "-", "<C-x>")
-
--- delete a word backwards
-map("n", "dw", "vb_d")
--- select all
-map("n", "<C-a>", "gg<S-v>G")
---jumptist
-map("n", "<C-m>", "<C-i>")
-
---split window
-
-map("n", "<leader>sh", ":split<Return>", opts)
-map("n", "<leader>sv", ":vsplit<Return>", opts)
-map("n", "<leader>se", "<C-w>=", { noremap = true, desc = "equalize window" })
-map("n", "<leader>sx", "<cmd>close<CR>", { desc = "close current window" })
-
-map("i", ",s", "<ESC>", {})
-map("", ",s", "<ESC>:w<CR>", {})
-map("", "s,", "<ESC>:w<CR>", {})
-map("", ",q", "<ESC>:bd<cr>", {})
-map("", "<c-q>", "<ESC>:qa<cr>", {})
-
-map("n", ";", ":", {})
 
 --move window
 -- map("n", "sh", "<C-w>h")

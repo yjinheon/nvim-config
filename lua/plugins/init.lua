@@ -67,11 +67,6 @@ return {
     end,
   },
   {
-    "leath-dub/snipe.nvim",
-    enabled = true,
-    opts = {},
-  },
-  {
     "numToStr/Comment.nvim",
     keys = {
       { "gcc", mode = "n", desc = "Comment toggle current line" },
