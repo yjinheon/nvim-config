@@ -84,7 +84,7 @@ map("n", "<F1>", "<cmd> DapToggleBreakpoint <CR>")
 map("n", "<F4>", "<cmd> NoiceLast <CR>")
 --F3 to ChatGPT
 --map("n", "<F3>", "<cmd> ChatGPT <CR>")
-map("n", "<F3>", "<cmd> CopilotChatToggle <CR>")
+--map("n", "<F3>", "<cmd> CopilotChatToggle <CR>")
 -- <C-c> to close ChatGPT window
 
 -- code action
@@ -142,6 +142,23 @@ vim.keymap.set("n", "<F6>", function()
   RunGoInSplit()
 end, { noremap = true })
 
+-- RunNodeInSplit
+
+-- function RunNodeInSplit()
+--   local win_height = vim.fn.winheight(0)
+--   local split_size = math.floor(win_height / 4)
+--   local file = vim.fn.expand("%:p")
+--   vim.cmd(split_size .. "split")
+--   vim.cmd("autocmd! TermClose <buffer> bdelete!")
+--   vim.cmd('terminal node "' .. file .. '"')
+--   vim.cmd("startinsert")
+-- end
+
+-- vim.keymap.set("n", "<F8>", function()
+--   vim.cmd("w")
+--   RunNodeInSplit()
+-- end)
+
 --map("n", "<F5>", "<cmd>python3 shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F6>", ":w<CR>:lua RunGoFile()<CR>", { noremap = true, silent = false })
 --map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
@@ -149,7 +166,7 @@ end, { noremap = true })
 
 -- run node js
 map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
-map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
+--map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 -- disable copilot
 map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 
@@ -158,32 +175,24 @@ map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 --map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true }) --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
 
-function RunKotlinInSplit()
-  local win_height = vim.fn.winheight(0)
-  local split_size = math.floor(win_height / 4)
-  local file = vim.fn.expand("%:p")
+-- function RunKotlinInSplit()
+--   local win_height = vim.fn.winheight(0)
+--   local split_size = math.floor(win_height / 4)
+--   local file = vim.fn.expand("%:p")
+--   local output = "/tmp/kotlin_exec.jar"
+--   vim.cmd(split_size .. "split")
+--   vim.cmd("autocmd! TermClose <buffer> bdelete!")
+--
+--   -- kotlinc로 jar 파일 만들고 java로 실행
+--   local cmd = 'sh -c "kotlinc '' .. file .. '' -include-runtime -d ' .. output .. ' && java -jar ' .. output .. '"'
+--   vim.cmd('terminal bash -c ' .. cmd)
+--   vim.cmd("startinsert")
+-- end
 
-  vim.cmd(split_size .. "split")
-
-  -- 커스텀 명령어 생성 (마지막에 bash 셸 유지)
-  local cmd = [[
-  echo "Compiling.. please wait...";
-  kotlinc "]] .. file .. [[" -include-runtime -d out.jar && 
-  echo "Running program..." &&
-  java -jar out.jar;
-  echo "";
-  echo "Program execution finished. Press Enter to close this window.";
-  rm out.jar;
-  read
-  ]]
-
-  vim.cmd("terminal bash -c " .. vim.fn.shellescape(cmd))
-end
-
-map("n", "<F11>", function()
-  vim.cmd("w") -- 파일 저장
-  RunKotlinInSplit()
-end, { noremap = true })
+--map("n", "<F11>", function()
+--  vim.cmd("w") -- 파일 저장
+--  RunKotlinInSplit()
+--end, { noremap = true })
 
 --move window
 -- map("n", "sh", "<C-w>h")

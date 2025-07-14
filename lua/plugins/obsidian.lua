@@ -1,4 +1,4 @@
-{
+return {
   "epwalsh/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
@@ -21,11 +21,11 @@
     workspaces = {
       {
         name = "personal",
-        path = "~/workspace/hugo-blog",
+        path = "~/workspace/astro-blog",
       },
     },
     -- see below for full list of options 👇
-    notes_subdir = "content",
+    -- notes_subdir = "content",
 
     -- disable frontmatter
 
@@ -37,7 +37,7 @@
 
     daily_notes = {
       -- Optional, if you keep daily notes in a separate directory.
-      folder = "my_obsidian/02_Area/daily-log",
+      folder = "para/20.Area/daily-log",
       -- Optional, if you want to change the date format for the ID of daily notes.
       date_format = "%Y-%m-%d",
       -- Optional, if you want to change the date format of the default alias of daily notes.
@@ -57,7 +57,7 @@
     },
 
     templates = {
-      folder = "~/workspace/hugo-blog/my_obsidian/02_Area/template",
+      folder = "~/workspace/astro-blog/para/20.Area/template",
       date_format = "%Y-%m-%d",
       time_format = "%H:%M",
       -- A map for custom variables, the key should be the variable and the value a function

@@ -123,10 +123,10 @@ return {
       --colorscheme = "catppuccin",
       --colorscheme = "monekai",
       -- colorscheme = "monokai-nightasty", -- or "gruvbox" --catppuccin fr:w
-      colorscheme = "catppuccin",
+      --colorscheme = "catppuccin",
       --colorscheme = "neofusion",
-      --colorscheme = "nightfox",
-      -- colorscheme = "dracula"
+      colorscheme = "nightfox",
+      --colorscheme = "dracula",
       -- colorscheme = "monokai-nightasty",
       --colorscheme = "neovim-ayu",
       --      colorscheme = "gruvbox",

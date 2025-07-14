@@ -9,17 +9,15 @@ return {
   },
   {
     "leath-dub/snipe.nvim",
-    keys = {
-      {
-        "gb",
-        function()
-          require("snipe").open_buffer_menu()
-        end,
-        desc = "Open Snipe buffer menu",
-      },
+    opts = {
+      "<leader>e",
+      function()
+        require("snipe").open_buffer_menu()
+      end,
+      desc = "Open Snipe buffer menu",
     },
-    opts = {},
   },
+  --opts = {},
   -- {
   --   "mhartington/formatter.nvim",
   --   event = { "BufReadPost", "BufNewFile" },
@@ -120,28 +118,5 @@ return {
       })
       require("telescope").load_extension("dbtpal")
     end,
-  },
-  {
-    "nvim-java/nvim-java",
-    config = false,
-    dependencies = {
-      {
-        "neovim/nvim-lspconfig",
-        opts = {
-          servers = {
-            jdtls = {
-              -- Your custom jdtls settings goes here
-            },
-          },
-          setup = {
-            jdtls = function()
-              require("java").setup({
-                -- Your custom nvim-java configuration goes here
-              })
-            end,
-          },
-        },
-      },
-    },
   },
 }
