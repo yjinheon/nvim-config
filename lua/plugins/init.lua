@@ -15,23 +15,23 @@ return {
   --     require("config.conform")
   --   end,
   -- },
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup({
-        -- read from .env file
-        api_key = os.getenv("GPT_API_KEY"),
-        api_key_cmd = "echo " .. os.getenv("GPT_API_KEY"),
-      })
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "folke/trouble.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  },
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup({
+  --       -- read from .env file
+  --       api_key = os.getenv("GPT_API_KEY"),
+  --       api_key_cmd = "echo " .. os.getenv("GPT_API_KEY"),
+  --     })
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "folke/trouble.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  -- },
   -- -- venv selector
   {
     "linux-cultist/venv-selector.nvim",

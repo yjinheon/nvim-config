@@ -21,7 +21,7 @@ map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
 -- toggle transparency
 -- map("n", "<leader>tt", "<cmd> TransparentToggle <CR>")
 
-map("n", "<leader>tt", ":silent !~/bash_utils/toggle_opacity.sh<CR>", { noremap = true, silent = true })
+map("n", "<leader>tt", "<cmd> TransparentToggle<CR>", { noremap = true, silent = true })
 
 -- shift b to open neotree
 map("n", "<S-b>", "<cmd> Neotree toggle <CR>")
@@ -88,7 +88,6 @@ map("n", "<F4>", "<cmd> NoiceLast <CR>")
 -- <C-c> to close ChatGPT window
 
 -- code action
-
 -- tiny code action
 map("n", "<leader>ca", "<cmd>lua require('tiny-code-action').code_action()<CR>")
 --lspsaga
@@ -143,7 +142,6 @@ vim.keymap.set("n", "<F6>", function()
 end, { noremap = true })
 
 -- RunNodeInSplit
-
 -- function RunNodeInSplit()
 --   local win_height = vim.fn.winheight(0)
 --   local split_size = math.floor(win_height / 4)
@@ -173,26 +171,32 @@ map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
 --map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
 --map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
---map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true }) --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
+--map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true })
 
--- function RunKotlinInSplit()
---   local win_height = vim.fn.winheight(0)
---   local split_size = math.floor(win_height / 4)
---   local file = vim.fn.expand("%:p")
---   local output = "/tmp/kotlin_exec.jar"
---   vim.cmd(split_size .. "split")
---   vim.cmd("autocmd! TermClose <buffer> bdelete!")
---
---   -- kotlinc로 jar 파일 만들고 java로 실행
---   local cmd = 'sh -c "kotlinc '' .. file .. '' -include-runtime -d ' .. output .. ' && java -jar ' .. output .. '"'
---   vim.cmd('terminal bash -c ' .. cmd)
---   vim.cmd("startinsert")
--- end
+--map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
 
---map("n", "<F11>", function()
---  vim.cmd("w") -- 파일 저장
---  RunKotlinInSplit()
---end, { noremap = true })
+function RunKotlinInSplit()
+  if vim.bo.filetype ~= "kotlin" then
+    print("This is not a Kotlin file.")
+    return
+  end
+
+  vim.cmd("write") -- 파일 저장
+
+  local win_height = vim.fn.winheight(0)
+  local split_size = math.floor(win_height / 4)
+  local file = vim.fn.expand("%:p")
+
+  vim.cmd(split_size .. "split")
+  vim.cmd("autocmd! TermClose <buffer> bdelete!")
+  vim.cmd('terminal kotlinr "' .. file .. '"')
+  vim.cmd("startinsert")
+end
+
+map("n", "<F11>", function()
+  vim.cmd("w") -- 파일 저장
+  RunKotlinInSplit()
+end, { noremap = true })
 
 --move window
 -- map("n", "sh", "<C-w>h")
