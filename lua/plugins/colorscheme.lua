@@ -10,12 +10,12 @@ return {
       vim.cmd.colorscheme("morta")
     end,
   },
-  { "notken12/base46-colors" },
+  -- { "notken12/base46-colors" },
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
   -- add catppuccin
   {
-    "catppuccin/nvim",
+    "catppuccin.nvim",
     name = "catppuccin",
     priority = 1000,
     opts = {

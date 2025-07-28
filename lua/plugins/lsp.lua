@@ -1,22 +1,28 @@
 return {
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = function(_, opts)
+  --     local servers = { "pyright", "basedpyright", "ruff", "ruff_lsp", ruff, lsp }
+  --     for _, server in ipairs(servers) do
+  --       opts.servers[server] = opts.servers[server] or {}
+  --       opts.servers[server].enabled = server == lsp or server == ruff
+  --     end
+  --   end,
+  --   setup = {
+  --     [ruff] = function()
+  --       LazyVim.lsp.on_attach(function(client, bufnr)
+  --         client.server_capabilities.hoverProvider = false
+  --       end, ruff)
+  --     end,
+  --   },
+  -- },
+  -- --
   {
-    "neovim/nvim-lspconfig",
-    opts = function(_, opts)
-      local servers = { "pyright", "basedpyright", "ruff", "ruff_lsp", ruff, lsp }
-      for _, server in ipairs(servers) do
-        opts.servers[server] = opts.servers[server] or {}
-        opts.servers[server].enabled = server == lsp or server == ruff
-      end
-    end,
-    setup = {
-      [ruff] = function()
-        LazyVim.lsp.on_attach(function(client, bufnr)
-          client.server_capabilities.hoverProvider = false
-        end, ruff)
-      end,
-    },
+    "onsails/lspkind.nvim",
+    lazy = false,
+    enabled = true,
   },
-  --
+
   {
     "williamboman/mason.nvim",
     opts = {

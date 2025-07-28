@@ -1,10 +1,5 @@
 return {
-  {
-    "onsails/lspkind.nvim",
-    lazy = false,
-    enabled = true,
-  },
-  {
+ {
     "hrsh7th/nvim-cmp",
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)

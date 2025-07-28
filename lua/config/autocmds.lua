@@ -7,6 +7,16 @@ local fn = vim.fn
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
+-- Go 파일 저장 시 gofumpt 자동 실행
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    local file = vim.fn.expand("%")
+    vim.fn.system("gofumpt -w " .. file)
+    vim.cmd("checktime")
+  end,
+})
+
 -- General Settings
 local general = augroup("General", { clear = true })
 
