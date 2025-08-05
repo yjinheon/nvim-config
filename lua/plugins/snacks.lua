@@ -14,6 +14,38 @@ local bordered_cat_fortune = string.format(
   fortune
 )
 
+local mewnvim = [[
+  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+
+                   *     ,MMM8&&&.            *
+                        MMMM88&&&&&    .
+                       MMMM88&&&&&&&
+           *           MMM88&&&&&&&&
+                       MMM88&&&&&&&&
+                       'MMM88&&&&&&'
+                         'MMM8&&&'      *
+
+          |\___/|      /\___/\
+            )     (      )    ~( .
+           =\     /=    =\~    /=
+           )===(        ) ~ (
+           /     \      /     \
+          |     |      ) ~   (
+          /       \    /     ~ \
+          \       /    \~     ~/
+          /\_/\__  _____/____/\_/\__~__/\_/\_/\_/\_/\_/\
+                |  |  |  |( (  |  |  | ))  |  |  |  |  |  |
+                |  |  |  | ) ) |  |  |//|  |  |  |  |  |  |
+                |  |  |  |(_(  |  |  (( |  |  |  |  |  |  |
+                |  |  |  |  |  |  |  |\)|  |  |  |  |  |  |
+                |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+]]
+
 local logos = {
   -- apple
   [[
@@ -94,11 +126,13 @@ local logos = {
       ⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿
       ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]],
   bordered_cat_fortune,
+  mewnvim,
 }
--- Seed random number generator
+-- seed random number generator
 math.randomseed(os.time())
 
 local logo = logos[math.random(#logos)]
+--local logo = logos[5]
 
 logo = string.rep("\n", 8) .. logo .. "\n\n"
 
@@ -127,7 +161,7 @@ return {
     words = { enabled = true },
     styles = {
       notification = {
-        wo = { wrap = true }, -- Wrap notifications
+        wo = { wrap = true }, -- wrap notifications
       },
     },
 
@@ -137,9 +171,9 @@ return {
       },
       sections = {
         { section = "header" },
-        { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-        { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+        { icon = " ", title = "keymaps", section = "keys", indent = 2, padding = 1 },
+        { icon = " ", title = "recent files", section = "recent_files", indent = 2, padding = 1 },
+        { icon = " ", title = "projects", section = "projects", indent = 2, padding = 1 },
         { section = "startup" },
       },
     },
