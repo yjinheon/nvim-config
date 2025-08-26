@@ -169,8 +169,26 @@ map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
 map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 
 -- run python test method
---map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
---map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
+map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
+
+vim.keymap.set("n", "<leader>dn", function()
+  require("dap-python").test_method()
+end, { silent = true, desc = "Debug Python Test Method" })
+
+-- Normal mode: debug python test class
+vim.keymap.set("n", "<leader>df", function()
+  require("dap-python").test_class()
+end, { silent = true, desc = "Debug Python Test Class" })
+
+-- Visual mode: debug selected python code
+vim.keymap.set("v", "<leader>ds", function()
+  require("dap-python").debug_selection()
+end, { silent = true, desc = "Debug Python Selection" })
+
+-- nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
+-- nnoremap <silent> <leader>df :lua require('dap-python').test_class()<CR>
+-- vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
+-- --map("n", "<F11>", ":exec '!' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F11>", ":exec '!kotlinr ' shellescape(@%, 1)<CR>", { noremap = true })
 
 --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")

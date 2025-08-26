@@ -152,6 +152,13 @@ return {
       enabled = true,
       timeout = 3000,
     },
+    picker = {
+      sources = {
+        files = {
+          hidden = true,
+        },
+      },
+    },
     quickfile = { enabled = true },
     rename = { enabled = false },
     statuscolumn = { enabled = true },

@@ -110,7 +110,6 @@ return {
               numhl = "LspDiagnosticsSignInformation",
             },
           }
-
           vim.fn.sign_define("DapBreakpoint", dap_breakpoint.error)
           vim.fn.sign_define("DapStopped", dap_breakpoint.stopped)
           vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
@@ -128,7 +127,9 @@ return {
         keys = config.dap_python.keys,
         config = function()
           local path = require("mason-registry").get_package("debugpy"):get_install_path()
-          require("dap-python").setup(path .. "/venv/bin/python")
+          local python = vim.fn.expand("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+          require("dap-python").setup("uv")
+          --require("dap-python").setup(path .. "/venv/bin/python")
         end,
       },
       {
