@@ -93,21 +93,21 @@ return {
           local dap_breakpoint = {
             error = {
               text = "🟥",
-              texthl = "LspDiagnosticsSignError",
+              texthl = "DiagnosticsSignError",
               linehl = "",
               numhl = "",
             },
             rejected = {
               text = "",
-              texthl = "LspDiagnosticsSignHint",
+              texthl = "DiagnosticsSignHint",
               linehl = "",
               numhl = "",
             },
             stopped = {
               text = "⭐️",
-              texthl = "LspDiagnosticsSignInformation",
+              texthl = "DiagnosticsSignInfo",
               linehl = "DiagnosticUnderlineInfo",
-              numhl = "LspDiagnosticsSignInformation",
+              numhl = "DiagnosticsSignInfo",
             },
           }
           vim.fn.sign_define("DapBreakpoint", dap_breakpoint.error)

@@ -1,6 +1,7 @@
 return {
   {
     "nvim-java/nvim-java",
+    priority = 1000,
     config = false,
     dependencies = {
       {

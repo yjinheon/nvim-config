@@ -32,10 +32,10 @@ return {
   --     "nvim-telescope/telescope.nvim",
   --   },
   -- },
-  -- -- venv selector
+  -- venv selector
   {
     "linux-cultist/venv-selector.nvim",
-    dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
+    dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim" },
     opts = {
       -- Your options go here
       name = { "venv", ".venv" },
@@ -198,7 +198,6 @@ return {
   --   dependencies = { "rafamadriz/friendly-snippets" },
   -- },
 
-
   -- {
   --   "VonHeikemen/fine-cmdline.nvim",
   --   lazy = false,
@@ -229,13 +228,14 @@ return {
     -- use opts = {} for passing setup options
     -- this is equalent to setup({}) function
   },
-
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "ahmedkhalf/project.nvim",
-    opts = {
-      manual_mode = false,
-    },
+    config = function()
+      require("project_nvim").setup({
+        manual_mode = false,
+        -- 필요 옵션 추가
+      })
+    end,
   },
   -- lazy.nvim:
 

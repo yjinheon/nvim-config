@@ -3,6 +3,19 @@ return {
   lazy = false,
   enabled = true,
   opts = function(_, opts)
+    local function silence(pattern)
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          any = {
+            { find = pattern },
+          },
+        },
+        opts = { skip = true }, -- 해당 알림 무시
+      })
+    end
+
+    silence("Failed to run `config` for nvim%-dap")
     -- opts.views = {
     --   cmdline_popup = {
     --     position = {
@@ -33,6 +46,7 @@ return {
     --     },
     --   },
     -- }
+
     opts.lsp.signature = {
       auto_open = { enabled = false },
     }

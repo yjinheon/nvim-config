@@ -13,52 +13,12 @@ return {
   -- { "notken12/base46-colors" },
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
-  -- add catppuccin
   {
-    "catppuccin.nvim",
-    name = "catppuccin",
+    "catppuccin",
     priority = 1000,
     opts = {
       flavour = "macchiato", --latte, frappe, macchiato,mocha
-      integrations = {
-        aerial = true,
-        alpha = true,
-        cmp = true,
-        dashboard = true,
-        flash = true,
-        fzf = true,
-        grug_far = true,
-        gitsigns = true,
-        headlines = true,
-        illuminate = true,
-        indent_blankline = { enabled = true },
-        leap = true,
-        lsp_trouble = true,
-        mason = true,
-        markdown = true,
-        mini = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { "undercurl" },
-            hints = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-          },
-        },
-        navic = { enabled = true, custom_bg = "lualine" },
-        neotest = true,
-        neotree = true,
-        noice = true,
-        notify = true,
-        semantic_tokens = true,
-        snacks = true,
-        telescope = true,
-        treesitter = true,
-        treesitter_context = true,
-        which_key = true,
-      },
-      styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+      styles = {
         comments = { "italic", "underline" },
         conditionals = { "italic" },
         loops = {},
@@ -165,7 +125,7 @@ return {
     opts = {
       --      colorscheme = "solarized-osaka",
       --      colorscheme = "doomchad",
-      --colorscheme = "nightfox",
+      colorscheme = "nightfox",
       --      colorscheme = "tokyonight-moon",
       --colorscheme = "tokyonight-storm",
       --      colorscheme = "morta",
@@ -182,7 +142,7 @@ return {
       --colorscheme = "neovim-ayu",
       --      colorscheme = "gruvbox",
       --colorscheme = "neofusion",
-      colorscheme = "catppuccin",
+      --colorscheme = "catppuccin",
     },
   },
 }

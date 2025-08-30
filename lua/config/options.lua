@@ -9,7 +9,8 @@
 vim.g.lazyvim_python_lsp = "pyright"
 vim.g.lazyvim_python_ruff = "ruff_lsp"
 
-vim.api.nvim_set_hl(0, "Comment", { italic = true })
+-- set comment italic
+--vim.api.nvim_set_hl(0, "Comment", { italic = true })
 
 -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 --   border = "rounded",
@@ -52,8 +53,8 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 -- put this after lazy setup
 
 -- (method 1, For heavy lazyloaders)
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
+--dofile(vim.g.base46_cache .. "defaults")
+--dofile(vim.g.base46_cache .. "statusline")
 
 -- (method 2, for non lazyloaders) to load all highlights at once
 -- for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do

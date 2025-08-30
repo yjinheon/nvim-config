@@ -171,10 +171,9 @@ map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
 map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
 
-vim.keymap.set("n", "<leader>dn", function()
-  require("dap-python").test_method()
-end, { silent = true, desc = "Debug Python Test Method" })
-
+-- vim.keymap.set("n", "<leader>dn", function()
+--   require("dap-python").test_method()
+-- end, { silent = true, desc = "Debug Python Test Method" })
 -- Normal mode: debug python test class
 vim.keymap.set("n", "<leader>df", function()
   require("dap-python").test_class()
