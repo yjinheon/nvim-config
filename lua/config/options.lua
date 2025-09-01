@@ -6,8 +6,8 @@
 -- Set to "basedpyright" to use basedpyright instead of pyright.
 
 --vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.g.lazyvim_python_lsp = "pyright"
-vim.g.lazyvim_python_ruff = "ruff_lsp"
+--vim.g.lazyvim_python_lsp = "pyright"
+--vim.g.lazyvim_python_ruff = "ruff_lsp"
 
 -- set comment italic
 --vim.api.nvim_set_hl(0, "Comment", { italic = true })
@@ -43,7 +43,7 @@ vim.opt.clipboard = "unnamedplus,unnamed"
 vim.opt.ignorecase = true
 
 -- set python3 as the default python interpreter
-vim.g.python3_host_prog = "/usr/bin/python3"
+vim.g.python3_host_prog = "/usr/bin/python"
 
 --base46
 

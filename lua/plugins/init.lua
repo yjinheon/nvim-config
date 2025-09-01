@@ -228,15 +228,15 @@ return {
     -- use opts = {} for passing setup options
     -- this is equalent to setup({}) function
   },
-  {
-    "ahmedkhalf/project.nvim",
-    config = function()
-      require("project_nvim").setup({
-        manual_mode = false,
-        -- 필요 옵션 추가
-      })
-    end,
-  },
+  -- {
+  --   "ahmedkhalf/project.nvim",
+  --   config = function()
+  --     require("project_nvim").setup({
+  --       manual_mode = false,
+  --       -- 필요 옵션 추가
+  --     })
+  --   end,
+  -- },
   -- lazy.nvim:
 
   --

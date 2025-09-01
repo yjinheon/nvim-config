@@ -18,6 +18,73 @@ return {
   -- },
   -- --
   {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        pyright = { enabled = false },
+        ruff = { enabled = false },
+        pylsp = {
+          -- (optional) ensure pylsp runs from your env that has rope/pylsp-rope
+          --cmd = { "uv", "run", "--with", "python-lsp-server,pylsp-rope,python-lsp-ruff", "pylsp" },
+          cmd = { "pylsp" },
+          settings = {
+            pylsp = {
+              plugins = {
+                -- Rope-based auto-imports
+                rope_autoimport = {
+                  enabled = true,
+                  -- optional extras:
+                  -- memory = false,   -- keep a disk DB so startup is faster
+                  -- code_actions = true,
+                },
+                -- Optional: use ruff for linting/organizing imports
+                ruff = { enabled = true, format = { "I" } }, -- organize/sort imports
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  --
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = function(_, opts)
+  --     -- Disable other Python LSP servers
+  --     opts.servers = opts.servers or {}
+  --
+  --     opts.servers.pyright = opts.servers.pyright or {}
+  --     opts.servers.pyright.enabled = false
+  --
+  --     opts.servers.ruff = opts.servers.ruff or {}
+  --     opts.servers.ruff.enabled = false
+  --
+  --     -- Configure pylsp
+  --     opts.servers.pylsp = opts.servers.pylsp or {}
+  --     opts.servers.pylsp.cmd = { "uv", "run", "--with", "python-lsp-server,pylsp-rope,python-lsp-ruff", "pylsp" }
+  --     --opts.servers.pylsp.cmd = { "pylsp" }
+  --     opts.servers.pylsp.settings = {
+  --       pylsp = {
+  --         plugins = {
+  --           -- Rope-based auto-imports
+  --           rope_autoimport = {
+  --             enabled = true,
+  --             -- optional extras:
+  --             -- memory = false,   -- keep a disk DB so startup is faster
+  --             code_actions = true,
+  --           },
+  --           -- Optional: use ruff for linting/organizing imports
+  --           ruff = { enabled = true, format = { "I" } }, -- organize/sort imports
+  --           pyflakes = { enabled = false },
+  --           pycodestyle = { enabled = false },
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
+  {
     "onsails/lspkind.nvim",
     lazy = false,
     enabled = true,
