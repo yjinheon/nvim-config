@@ -29,6 +29,10 @@ return {
 
     -- disable frontmatter
 
+    ui = {
+      enable = false,
+    },
+
     disable_frontmatter = true,
 
     -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log

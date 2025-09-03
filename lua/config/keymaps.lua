@@ -221,7 +221,7 @@ end, { noremap = true })
 -- map("n", "sk", "<C-w>k")
 -- map("n", "sl", "<C-w>l")
 
--- todolist 관리를 위한 keymap
+-- todo list 관리를 위한 keymap
 
 vim.keymap.set("n", "<leader>ti", function()
   local todo_path = "~/workspace/astro-blog/para/10.Project"
@@ -229,6 +229,7 @@ vim.keymap.set("n", "<leader>ti", function()
     prompt_title = "Incomplete Tasks",
     -- search = "- \\[ \\]", -- Fixed search term for tasks
     -- search = "^- \\[ \\]", -- Ensure "- [ ]" is at the beginning of the line
+    path_display = { "smart" },
     search = "^\\s*- \\[ \\]", -- also match blank spaces at the beginning
     search_dirs = { todo_path }, -- Restrict search to the current working directory
     use_regex = true, -- Enable regex for the search term
@@ -242,7 +243,7 @@ vim.keymap.set("n", "<leader>ti", function()
   }))
 end, { desc = "[P]Search for incomplete tasks" })
 
--- Iterate through completed tasks in telescope lamw25wmal
+-- Iterate through completed tasks in telescope
 vim.keymap.set("n", "<leader>tc", function()
   local todo_path = "~/workspace/astro-blog/para/10.Project"
   require("telescope.builtin").grep_string(require("telescope.themes").get_ivy({
@@ -250,7 +251,7 @@ vim.keymap.set("n", "<leader>tc", function()
     -- search = [[- \[x\] `done:]], -- Regex to match the text "`- [x] `done:"
     -- search = "^- \\[x\\] `done:", -- Matches lines starting with "- [x] `done:"
     --search = "^\\s*- \\[x\\] `done:", -- also match blank spaces at the beginning
-
+    path_display = { "smart" },
     search = "^\\s*- \\[x\\]", -- also match blank spaces at the beginning
     search_dirs = { todo_path }, -- Restrict search to the current working directory
     use_regex = true, -- Enable regex for the search term
@@ -305,13 +306,35 @@ vim.keymap.set("n", "<F3>", function()
   ------------------------------------------------------------------------------
   -- (B) Validate that it's actually a task bullet, i.e. '- [ ]' or '- [x]'
   ------------------------------------------------------------------------------
-  local bullet_line = lines[start_line + 1]
-  if not bullet_line:match("^%s*%- %[[x ]%]") then
-    -- Not a task bullet => show a message and return
-    print("Not a task bullet: no action taken.")
-    vim.cmd("loadview")
-    return
+  -- 유연한 task bullet 검증 함수
+  local function is_task_bullet(bullet_line)
+    if not bullet_line or bullet_line == "" then
+      return false
+    end
+
+    -- 1단계: 기본 구조 확인 (bullet + 체크박스)
+    local basic_pattern = "^%s*[%-%*%+]%s*%[.-%]"
+    if not bullet_line:match(basic_pattern) then
+      return false
+    end
+
+    -- 2단계: 체크박스 내용이 적절한지 확인
+    local checkbox_content = bullet_line:match("^%s*[%-%*%+]%s*%[(.-)%]")
+    if not checkbox_content then
+      return false
+    end
+
+    -- 체크박스 안이 비어있거나 완료 표시가 있으면 task bullet
+    return checkbox_content:match("^%s*$") -- 빈 공백
+      or checkbox_content:match("^%s*[xX✓✗]%s*$") -- 완료 표시들
   end
+  local bullet_line = lines[start_line + 1]
+  -- if not bullet_line:match("^%s*%- %[[x ]%]") then
+  --   -- Not a task bullet => show a message and return
+  --   print("Not a task bullet: no action taken.")
+  --   vim.cmd("loadview")
+  --   return
+  -- end
   ------------------------------------------------------------------------------
   -- 1. Identify the chunk boundaries
   ------------------------------------------------------------------------------
@@ -468,13 +491,19 @@ vim.keymap.set({ "n", "i" }, "<F2>", function()
   local cursor = vim.api.nvim_win_get_cursor(0)
   -- Check if the line starts with a bullet or "- ", and remove it
   local updated_line = line:gsub("^%s*[-*]%s*", "", 1)
+
+  local datestring = os.date("%Y-%m-%d")
   -- Update the line
   vim.api.nvim_set_current_line(updated_line)
   -- Move the cursor back to its original position
   vim.api.nvim_win_set_cursor(0, { cursor[1], #updated_line })
   -- Insert the checkbox
-  vim.api.nvim_put({ "- [ ] #todo " }, "c", true, true)
+  vim.api.nvim_put({ "- [  ] #todo 📅 " .. datestring }, "c", true, true)
 end, { desc = "[P]Toggle checkbox" })
+
+vim.api.nvim_create_user_command("FindPosts", function()
+  require("fzf-lua").files({ cwd = "~/workspace/astro-blog/src/content/posts/" })
+end, {})
 
 -- Copy and Paste to clipboard
 map("v", "<leader>y", '"+y', { noremap = true })
