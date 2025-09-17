@@ -28,6 +28,10 @@
 --   ["Find Subword Under"] = "<C-d>",
 -- }
 
+-- enable kotlin lsp
+
+vim.lsp.enable("kotlin_lsp")
+
 -- only format . no add or remove imports
 -- no foramt on save
 -- init.lua 파일에 추가 (Lua 사용 시)

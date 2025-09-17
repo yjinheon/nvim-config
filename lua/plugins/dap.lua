@@ -57,7 +57,7 @@ local default_config = {
   },
   dap_python = {
     keys = {
-      { "<F10>", function() require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
+      { "<F9>", function() require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
       { "<leader>dpc", function() require("dap-python").test_class() end, desc = "Debug Class", ft = "python" },
       { "<leader>dps", function() require('dap-python').debug_selection() end, desc = "Debug Selection", ft = "python" }
     },

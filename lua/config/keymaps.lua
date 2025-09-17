@@ -4,9 +4,9 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+--vim.keymap.del("n", "<leader>l")
 -- w : move forward by word
 -- b : move backward by word
-
 -- toggle lsp diagnostics
 
 map("n", "<leader>td", function()
@@ -15,6 +15,21 @@ end)
 
 --markdown preview
 map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
+
+-- select query
+
+-- map(
+--   "n",
+--   "<leader>vr",
+--   "<cmd>OpenSqlFile<CR>",
+--   { silent = true, desc = "Open .sql file from queries dir", buffer = true }
+-- )
+-- map(
+--   "n",
+--   "<leader>vp",
+--   "<cmd>RemoveSqlFile<CR>",
+--   { silent = true, desc = "Remove .sql file from queries dir", buffer = true }
+-- )
 
 --snipe menu
 
@@ -498,7 +513,7 @@ vim.keymap.set({ "n", "i" }, "<F2>", function()
   -- Move the cursor back to its original position
   vim.api.nvim_win_set_cursor(0, { cursor[1], #updated_line })
   -- Insert the checkbox
-  vim.api.nvim_put({ "- [  ] #todo 📅 " .. datestring }, "c", true, true)
+  vim.api.nvim_put({ "- [ ] #todo 📅 " .. datestring }, "c", true, true)
 end, { desc = "[P]Toggle checkbox" })
 
 vim.api.nvim_create_user_command("FindPosts", function()

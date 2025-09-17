@@ -125,14 +125,14 @@ return {
     opts = {
       --      colorscheme = "solarized-osaka",
       --      colorscheme = "doomchad",
-      colorscheme = "nightfox",
+      --colorscheme = "nightfox",
       --      colorscheme = "tokyonight-moon",
       --colorscheme = "tokyonight-storm",
       --      colorscheme = "morta",
       --colorscheme = "tokyonight-day",
       --colorscheme = "tokyonight-night",
       --     colorscheme = "kanagawa",
-      --colorscheme = "catppuccin",
+      colorscheme = "catppuccin-frappe",
       --colorscheme = "monekai",
       -- colorscheme = "monokai-nightasty", -- or "gruvbox" --catppuccin fr:w
       --colorscheme = "catppuccin",

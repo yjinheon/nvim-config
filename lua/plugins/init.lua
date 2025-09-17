@@ -104,12 +104,6 @@ return {
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
   },
-  -- noice.nvim
-  -- {
-  --   "s1n7ax/nvim-noice",
-  --   lazy = false,
-  --   enabled = true,
-  -- },
   {
     "folke/twilight.nvim",
     opts = {
@@ -167,29 +161,6 @@ return {
       end,
     },
   },
-  {
-    "nvim-telescope/telescope.nvim",
-    opts = {
-
-      defaults = {
-        vimgrep_arguements = {
-          "--color=always",
-          "--line-number",
-          "--no-heading",
-          "--smart-case '${*:-}'",
-        },
-      },
-
-      extensions = {
-        fzf = {
-          fuzzy = true, -- false will only do exact matching
-          override_generic_sorter = true, -- override the generic sorter
-          override_file_sorter = true, -- override the file sorter
-          case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-        },
-      },
-    },
-  },
   -- {
   --   "garymjr/nvim-snippets",
   --   opts = {
@@ -212,6 +183,11 @@ return {
       filtered_items = {
         hide_hidden = false,
       },
+      filesystem = {
+        hijack_netrw_behavior = "open_current", -- "open_default", "open_current", "disabled"
+        -- 디렉토리를 열 때 자동으로 neotree 열지 않음
+        bind_to_cwd = false,
+      },
     },
   },
   {
@@ -228,25 +204,4 @@ return {
     -- use opts = {} for passing setup options
     -- this is equalent to setup({}) function
   },
-  -- {
-  --   "ahmedkhalf/project.nvim",
-  --   config = function()
-  --     require("project_nvim").setup({
-  --       manual_mode = false,
-  --       -- 필요 옵션 추가
-  --     })
-  --   end,
-  -- },
-  -- lazy.nvim:
-
-  --
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
 }

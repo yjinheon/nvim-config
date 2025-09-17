@@ -141,13 +141,13 @@ return {
   priority = 1000,
   lazy = false,
   keys = {
-    {
-      "<leader>.",
-      function()
-        Snacks.scratch()
-      end,
-      desc = "Toggle Scratch Buffer",
-    },
+    -- {
+    --   "<leader>.",
+    --   function()
+    --     Snacks.scratch()
+    --   end,
+    --   desc = "Toggle Scratch Buffer",
+    -- },
     {
       "<leader>ts",
       function()
