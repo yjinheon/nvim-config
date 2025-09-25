@@ -39,9 +39,13 @@ map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
 
 -- shift b to open neotree
 map("n", "<S-b>", "<cmd> Neotree toggle <CR>")
+-- map("n", "<S-b>", function()
+--   Snacks.picker.explorer()
+-- end)
 -- live_grep cwd
 --map("n", "<leader>fw", LazyVim.pick("live_grep", { root = true }))
 -- cycle through buffers
+
 map("n", "<TAB>", "<cmd> bnext <CR>")
 map("n", "<S-TAB>", "<cmd> bprevious <CR>")
 -- close current buffer
@@ -112,6 +116,8 @@ map("n", "gf", "<Cmd>Lspsaga lsp_finder<CR>", opts)
 map("n", "gd", "<Cmd>Lspsaga goto_definition<CR>", opts)
 map("n", "gp", "<Cmd>Lspsaga peek_definition<CR>", opts)
 map("n", "gr", "<Cmd>Lspsaga rename<CR>", opts)
+
+--- FloatermToggle
 map("n", "<F12>", ":FloatermToggle aTerm<CR>", { noremap = true })
 map("t", "<F12>", "<C-\\><C-n>:FloatermToggle aTerm<CR>", { noremap = true })
 
@@ -149,9 +155,8 @@ function RunGoInSplit()
   vim.cmd("startinsert")
 end
 
--- F6 키에 매핑
 vim.keymap.set("n", "<F6>", function()
-  vim.cmd("w") -- 파일 저장
+  vim.cmd("w")
   RunGoInSplit()
 end, { noremap = true })
 
@@ -180,10 +185,9 @@ end, { noremap = true })
 map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
 --map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 -- disable copilot
-map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
-
+--map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
-map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
+--map("n", "<F10>", ":lua require('dap-python').test_method()", { noremap = true })
 
 -- vim.keymap.set("n", "<leader>dn", function()
 --   require("dap-python").test_method()
@@ -280,7 +284,7 @@ vim.keymap.set("n", "<leader>tc", function()
   }))
 end, { desc = "[P]Search for completed tasks" })
 
-vim.keymap.set("n", "<F3>", function()
+vim.keymap.set("n", "<F10>", function()
   -- Customizable variables
   -- NOTE: Customize the completion label
   local label_done = "done:"
@@ -500,7 +504,7 @@ end, { desc = "[P]Toggle task and move it to 'done'" })
 
 -- Crate task or checkbox
 -- These are marked with <leader>x using bullets.vim
-vim.keymap.set({ "n", "i" }, "<F2>", function()
+vim.keymap.set({ "n", "i" }, "<F11>", function()
   -- Get the current line and cursor position
   local line = vim.api.nvim_get_current_line()
   local cursor = vim.api.nvim_win_get_cursor(0)

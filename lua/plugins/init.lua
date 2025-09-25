@@ -174,6 +174,7 @@ return {
   --   lazy = false,
   --   enabled = true,
   -- },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
@@ -190,6 +191,7 @@ return {
       },
     },
   },
+
   {
     -- Add indentation guides even on blank lines
     "lukas-reineke/indent-blankline.nvim",

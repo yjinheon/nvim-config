@@ -1,5 +1,7 @@
 -- local user_config = vim.g.config.plugins.dap or {}
 
+-- https://codeberg.org/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation.md
+
 local user_config = {}
 --
 -- ---From https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/go.lua#L145
@@ -27,11 +29,12 @@ local default_config = {
      -- vim.keymap.set('n', '<F11>', require 'dap'.step_into)
      -- vim.keymap.set('n', '<F12>', require 'dap'.step_out)
      -- vim.keymap.set('n', '<leader>b', require 'dap'.toggle_breakpoint)
+
      --step over : 한줄을 실행합니다. 함수가 있어도 실행 후 다음으로 넘어갑니다.
      --step into : 함수 내부로 들어갑니다.
      --step out : 함수를 끝까지 실행시키고 호출시킨 곳으로 되돌아 갑니다.
        { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
-      { "<leader>dn", function() require("dap").step_over() end, desc = "Step Over" },
+      { "<F2>", function() require("dap").step_over() end, desc = "Step Over" },
       { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
       { "<leader>du", function() require("dap").up() end, desc = "Up" },
       { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
@@ -126,7 +129,7 @@ return {
         "mfussenegger/nvim-dap-python",
         keys = config.dap_python.keys,
         config = function()
-          local path = require("mason-registry").get_package("debugpy"):get_install_path()
+          --          local path = require("mason-registry").get_package("debugpy"):get_install_path()
           local python = vim.fn.expand("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
           require("dap-python").setup("uv")
           --require("dap-python").setup(path .. "/venv/bin/python")
@@ -136,6 +139,72 @@ return {
 
         "leoluz/nvim-dap-go",
         config = true,
+      },
+    },
+    opts = {
+      setup = {
+        kotlin_debug_adapter = function()
+          local dap = require("dap")
+
+          local exepath = vim.fn.exepath("kotlin-debug-adapter")
+          if exepath == "" then
+            exepath =
+              vim.fn.expand("~/.local/share/nvim/mason/packages/kotlin-debug-adapter/adapter/bin/kotlin-debug-adapter")
+          end
+          dap.adapters.kotlin = {
+            type = "executable",
+            command = exepath,
+            -- adapter가 stdout/stderr를 내부 콘솔로 넘겨줘야함
+            args = { "--stdio" },
+            options = {
+              auto_continue_if_many_stopped = true,
+            },
+          }
+
+          dap.configurations.kotlin = {
+            {
+              type = "kotlin",
+              name = "launch - kotlin",
+              request = "launch",
+              -- projectRoot = vim.fn.getcwd(), -- build.gradle
+              mainClass = function()
+                local root = vim.fs.find("src", { path = vim.uv.cwd(), upward = true, stop = vim.env.HOME })[1] or ""
+                local fname = vim.api.nvim_buf_get_name(0)
+                -- src/main/kotlin/websearch/Main.kt -> websearch.MainKt
+                return fname:gsub(root, ""):gsub("main/kotlin/", ""):gsub(".kt", "Kt"):gsub("/", "."):sub(2, -1)
+              end,
+              projectRoot = "${workspaceFolder}",
+              jsonLogFile = "",
+              enableJsonLogging = false,
+              -- projectRoot = (vim.uv or vim.loop).cwd(),
+            },
+            {
+              type = "kotlin",
+              name = "attach - kotlin",
+              request = "attach",
+              --  projectRoot = vim.fn.getcwd(),
+              projectRoot = (vim.uv or vim.loop).cwd(),
+              hostName = "localhost",
+              port = 5005, -- JVM Remote Debug 기본 포트
+              timeout = 1000,
+            },
+            stopOnEntry = true,
+            --            outputMode = "std",
+            --           console = "integratedTerminal",
+          }
+
+          -- go config
+
+          dap.configurations.go = {
+            {
+              type = "delve",
+              name = "file",
+              request = "launch",
+              program = "${file}",
+              outputMode = "remote",
+            },
+          }
+        end,
       },
     },
   },
