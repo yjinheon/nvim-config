@@ -14,27 +14,32 @@ return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
   {
-    "catppuccin",
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
-    opts = {
-      flavour = "macchiato", --latte, frappe, macchiato,mocha
-      styles = {
-        comments = { "italic", "underline" },
-        conditionals = { "italic" },
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-        operators = {},
-        -- miscs = {}, -- Uncomment to turn off hard-coded styles
-      },
-    },
   },
+  -- {
+  --   "catppuccin",
+  --   priority = 1000,
+  --   opts = {
+  --     flavour = "macchiato", --latte, frappe, macchiato,mocha
+  --     styles = {
+  --       comments = { "italic", "underline" },
+  --       conditionals = { "italic" },
+  --       loops = {},
+  --       functions = {},
+  --       keywords = {},
+  --       strings = {},
+  --       variables = {},
+  --       numbers = {},
+  --       booleans = {},
+  --       properties = {},
+  --       types = {},
+  --       operators = {},
+  --       -- miscs = {}, -- Uncomment to turn off hard-coded styles
+  --     },
+  --   },
+  -- },
   { "diegoulloao/neofusion.nvim", priority = 1000, config = true, opts = ... },
   {
     "xiyaowong/transparent.nvim",
@@ -132,10 +137,10 @@ return {
       --colorscheme = "tokyonight-day",
       --colorscheme = "tokyonight-night",
       --     colorscheme = "kanagawa",
-      colorscheme = "catppuccin-frappe",
+      --colorscheme = "catppuccin-frappe",
       --colorscheme = "monekai",
       -- colorscheme = "monokai-nightasty", -- or "gruvbox" --catppuccin fr:w
-      --colorscheme = "catppuccin",
+      colorscheme = "catppuccin",
       --colorscheme = "neofusion",
       --colorscheme = "dracula",
       -- colorscheme = "monokai-nightasty",

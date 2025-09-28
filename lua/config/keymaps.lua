@@ -16,6 +16,12 @@ end)
 --markdown preview
 map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
 
+vim.keymap.set("n", "<leader>fd", function()
+  require("telescope.builtin").find_files({
+    cwd = vim.fn.expand("%:p:h"), -- directory of current buffer
+  })
+end, { desc = "Find files in current buffer's directory" })
+
 -- select query
 
 -- map(
@@ -183,7 +189,9 @@ end, { noremap = true })
 
 -- run node js
 map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
+map("n", "<F8>", "<cmd>KotlinRunMain<CR>", { noremap = true })
 --map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
+
 -- disable copilot
 --map("n", "<F9>", "<cmd> Copilot disable <CR>", { noremap = true })
 -- run python test method
@@ -229,11 +237,11 @@ function RunKotlinInSplit()
   vim.cmd("startinsert")
 end
 
-map("n", "<F11>", function()
-  vim.cmd("w") -- 파일 저장
-  RunKotlinInSplit()
-end, { noremap = true })
-
+-- map("n", "<F11>", function()
+--   vim.cmd("w") -- 파일 저장
+--   RunKotlinInSplit()
+-- end, { noremap = true })
+--
 --move window
 -- map("n", "sh", "<C-w>h")
 -- map("n", "sj", "<C-w>j")
@@ -284,7 +292,7 @@ vim.keymap.set("n", "<leader>tc", function()
   }))
 end, { desc = "[P]Search for completed tasks" })
 
-vim.keymap.set("n", "<F10>", function()
+vim.keymap.set("n", "<F11>", function()
   -- Customizable variables
   -- NOTE: Customize the completion label
   local label_done = "done:"
@@ -504,7 +512,7 @@ end, { desc = "[P]Toggle task and move it to 'done'" })
 
 -- Crate task or checkbox
 -- These are marked with <leader>x using bullets.vim
-vim.keymap.set({ "n", "i" }, "<F11>", function()
+vim.keymap.set({ "n", "i" }, "<F10>", function()
   -- Get the current line and cursor position
   local line = vim.api.nvim_get_current_line()
   local cursor = vim.api.nvim_win_get_cursor(0)
