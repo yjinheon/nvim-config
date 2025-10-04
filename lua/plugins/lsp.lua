@@ -21,6 +21,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        jdtls = nil,
         pyright = { enabled = false },
         ruff = { enabled = false },
         pylsp = {

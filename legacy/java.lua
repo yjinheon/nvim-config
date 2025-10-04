@@ -4,6 +4,10 @@ return {
     priority = 1000,
     config = false,
     dependencies = {
+      "nvim-java/lua-async-await",
+      "nvim-java/nvim-java-core",
+      "nvim-java/nvim-java-test",
+      "MunifTanjim/nui.nvim",
       {
         "neovim/nvim-lspconfig",
         opts = {
@@ -15,6 +19,10 @@ return {
           setup = {
             jdtls = function()
               require("java").setup({
+
+                jdk = {
+                  auto_install = false,
+                },
                 -- custom nvim-java configuration
                 root_markers = {
                   "settings.gradle",
@@ -28,7 +36,7 @@ return {
                   ".git",
                 },
                 jdtls = {
-                  -- version = 'v1.43.0',
+                  version = "v1.43.0",
                   language_servers = {
                     {
                       name = "spring-boot-language-server",
@@ -47,13 +55,14 @@ return {
                 },
                 java_debug_adapter = {
                   enable = true,
-                  -- version = '0.58.1',
+                  -- version = '1.58.1',
                 },
                 spring_boot_tools = {
-                  enable = true,
+                  enable = false,
                   version = "1.63.0",
                 },
               })
+              --require("lspconfig").jdtls.setup({})
             end,
           },
         },
