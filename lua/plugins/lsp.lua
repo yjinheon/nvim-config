@@ -22,7 +22,19 @@ return {
     opts = {
       servers = {
         jdtls = nil,
-        pyright = { enabled = false },
+        pyright = {
+          enabled = false,
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "off", -- or "strict", "basic"
+                reportGeneralTypeIssues = "warning",
+                reportUndefinedVariable = "error",
+                -- Add other Pyright settings as needed
+              },
+            },
+          },
+        },
         ruff = { enabled = false },
         pylsp = {
           -- (optional) ensure pylsp runs from your env that has rope/pylsp-rope
@@ -95,6 +107,7 @@ return {
     "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
+        "python-lsp-server",
         "lua-language-server",
         "stylua",
         "html-lsp",

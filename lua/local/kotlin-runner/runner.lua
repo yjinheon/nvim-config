@@ -234,12 +234,20 @@ local function build_gradle_command(root, fqcn, program_args)
   return table.concat(cmd, " ")
 end
 
-local function open_picker(paths, on_select)
+local function open_picker(paths, root, on_select)
   if pcall(require, "telescope") then
     local pickers = require("telescope.pickers")
     local finders = require("telescope.finders")
     local conf = require("telescope.config").values
     local themes = require("telescope.themes")
+    local entry_display = require("telescope.pickers.entry_display")
+
+    local displayer = entry_display.create({
+      separator = "",
+      items = {
+        { width = 999 },
+      },
+    })
 
     local opts = themes.get_dropdown({
       prompt_title = "kotlin mains(Gradle)",
@@ -254,14 +262,28 @@ local function open_picker(paths, on_select)
     pickers
       .new(opts, {
         prompt_title = "Kotlin mains (Gradle)",
-        finder = finders.new_table({ results = paths }),
+        finder = finders.new_table({
+          results = paths,
+          entry_maker = function(path)
+            -- absolute path에서 root 제거하고 src/kotlin 이후만 표시
+            local rel_path = path:gsub("^" .. vim.pesc(root) .. "/", "")
+            local display_path = rel_path:match("(src/kotlin/.+)") or rel_path
+            return {
+              value = path,
+              display = function()
+                return displayer({ display_path })
+              end,
+              ordinal = display_path,
+            }
+          end,
+        }),
         sorter = conf.generic_sorter({}),
         attach_mappings = function(_, map)
           map("i", "<CR>", function(prompt_bufnr)
             local action_state = require("telescope.actions.state")
             local sel = action_state.get_selected_entry()
             require("telescope.actions").close(prompt_bufnr)
-            on_select(sel[1])
+            on_select(sel.value)
           end)
           return true
         end,
@@ -324,7 +346,7 @@ function Runner:start_run(args)
   if #mains == 1 then
     launch(mains[1])
   else
-    open_picker(mains, launch)
+    open_picker(mains, root, launch)
   end
 end
 

@@ -14,6 +14,11 @@ return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
   {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1001,
+  },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
@@ -118,7 +123,7 @@ return {
   -- {
   --   "craftzdog/solarized-osaka.nvim",
   -- },
-  -- -- {
+  -- {
   --   "nvchad/base46",
   --   lazy = true,
   --   build = function()
