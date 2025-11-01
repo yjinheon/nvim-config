@@ -4,6 +4,8 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- shift b to open neotree
+map("n", "<S-b>", "<cmd> Neotree toggle <CR>")
 --vim.keymap.del("n", "<leader>l")
 -- w : move forward by word
 -- b : move backward by word
@@ -43,8 +45,6 @@ end, { desc = "Find files in current buffer's directory" })
 --map("n", "<leader>tt", "<cmd> TransparentToggle <CR>")
 --map("n", "<leader>tt", "<cmd> TransparentToggle<CR>", { noremap = true, silent = true })
 
--- shift b to open neotree
-map("n", "<S-b>", "<cmd> Neotree toggle <CR>")
 -- map("n", "<S-b>", function()
 --   Snacks.picker.explorer()
 -- end)
