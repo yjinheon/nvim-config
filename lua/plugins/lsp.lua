@@ -1,124 +1,5 @@
 return {
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = function(_, opts)
-  --     local servers = { "pyright", "basedpyright", "ruff", "ruff_lsp", ruff, lsp }
-  --     for _, server in ipairs(servers) do
-  --       opts.servers[server] = opts.servers[server] or {}
-  --       opts.servers[server].enabled = server == lsp or server == ruff
-  --     end
-  --   end,
-  --   setup = {
-  --     [ruff] = function()
-  --       LazyVim.lsp.on_attach(function(client, bufnr)
-  --         client.server_capabilities.hoverProvider = false
-  --       end, ruff)
-  --     end,
-  --   },
-  -- },
-  -- --
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        jdtls = nil,
-        pyright = {
-          enabled = false,
-          settings = {
-            python = {
-              analysis = {
-                typeCheckingMode = "off", -- or "strict", "basic"
-                reportGeneralTypeIssues = "warning",
-                reportUndefinedVariable = "error",
-                -- Add other Pyright settings as needed
-              },
-            },
-          },
-        },
-        ruff = { enabled = false },
-        pylsp = {
-          -- (optional) ensure pylsp runs from your env that has rope/pylsp-rope
-          --cmd = { "uv", "run", "--with", "python-lsp-server,pylsp-rope,python-lsp-ruff", "pylsp" },
-          cmd = { "pylsp" },
-          settings = {
-            pylsp = {
-              plugins = {
-                -- Rope-based auto-imports
-                rope_autoimport = {
-                  enabled = true,
-                  -- optional extras:
-                  -- memory = false,   -- keep a disk DB so startup is faster
-                  -- code_actions = true,
-                },
-                -- Optional: use ruff for linting/organizing imports
-                ruff = { enabled = true, format = { "I" } }, -- organize/sort imports
-                pyflakes = { enabled = false },
-                pycodestyle = { enabled = false },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  --
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = function(_, opts)
-  --     -- Disable other Python LSP servers
-  --     opts.servers = opts.servers or {}
-  --
-  --     opts.servers.pyright = opts.servers.pyright or {}
-  --     opts.servers.pyright.enabled = false
-  --
-  --     opts.servers.ruff = opts.servers.ruff or {}
-  --     opts.servers.ruff.enabled = false
-  --
-  --     -- Configure pylsp
-  --     opts.servers.pylsp = opts.servers.pylsp or {}
-  --     opts.servers.pylsp.cmd = { "uv", "run", "--with", "python-lsp-server,pylsp-rope,python-lsp-ruff", "pylsp" }
-  --     --opts.servers.pylsp.cmd = { "pylsp" }
-  --     opts.servers.pylsp.settings = {
-  --       pylsp = {
-  --         plugins = {
-  --           -- Rope-based auto-imports
-  --           rope_autoimport = {
-  --             enabled = true,
-  --             -- optional extras:
-  --             -- memory = false,   -- keep a disk DB so startup is faster
-  --             code_actions = true,
-  --           },
-  --           -- Optional: use ruff for linting/organizing imports
-  --           ruff = { enabled = true, format = { "I" } }, -- organize/sort imports
-  --           pyflakes = { enabled = false },
-  --           pycodestyle = { enabled = false },
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
-  {
-    "onsails/lspkind.nvim",
-    lazy = false,
-    enabled = true,
-  },
-
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "python-lsp-server",
-        "lua-language-server",
-        "stylua",
-        "html-lsp",
-        "css-lsp",
-        "prettier",
-        "pyright",
-        "typescript-language-server",
-        "flake8",
-      },
-    },
-  },
+  -- Lspsaga
   {
     "nvimdev/lspsaga.nvim",
     config = function()
@@ -131,21 +12,194 @@ return {
       })
     end,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons", -- optional
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
     },
   },
   {
-    "ray-x/lsp_signature.nvim",
-    event = "InsertEnter",
-    opts = {
-      bind = true,
-      handler_opts = {
-        border = "rounded",
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+
+      -- optional picker via telescope
+      { "nvim-telescope/telescope.nvim" },
+      -- optional picker via fzf-lua
+      { "ibhagwan/fzf-lua" },
+      -- .. or via snacks
+      {
+        "folke/snacks.nvim",
+        opts = {
+          terminal = {},
+        },
       },
     },
-    config = function(_, opts)
-      require("lsp_signature").setup(opts)
+    event = "LspAttach",
+    opts = {},
+  },
+
+  -- LSP Core
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      { "mason-org/mason.nvim", config = true },
+      "mason-org/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      {
+        "j-hui/fidget.nvim",
+        opts = { notification = { window = { winblend = 0 } } },
+      },
+      "hrsh7th/cmp-nvim-lsp",
+    },
+
+    config = function()
+      -- LspAttach: Lspsaga 기반 키맵
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+        -- LazyVim 기본 'K' 매핑 제거 (버퍼 로컬 + 혹시 모를 글로벌)
+
+        callback = function(event)
+          pcall(vim.keymap.del, "n", "K", { buffer = event.buf })
+          pcall(vim.keymap.del, "n", "K")
+          local map = function(keys, rhs, desc)
+            vim.keymap.set("n", keys, rhs, { buffer = event.buf, desc = "LSP: " .. desc })
+          end
+
+          local ok_tb, tb = pcall(require, "telescope.builtin")
+
+          map("gd", "<cmd>Lspsaga goto_definition<CR>", "[G]oto [D]efinition")
+          map("gp", "<cmd>Lspsaga peek_definition<CR>", "Pe[e]k Definition")
+          map("gr", "<cmd>Lspsaga finder<CR>", "[G]oto [R]eferences (Finder)")
+          map("gI", "<cmd>Lspsaga finder<CR>", "[G]oto [I]mplementations (Finder)")
+          map("<leader>D", "<cmd>Lspsaga goto_type_definition<CR>", "Type [D]efinition")
+
+          map("<leader>ds", "<cmd>Lspsaga outline<CR>", "[D]ocument [S]ymbols (Outline)")
+          if ok_tb then
+            map("<leader>ws", tb.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+          else
+            map("<leader>ws", "<cmd>Lspsaga outline<CR>", "[W]orkspace [S]ymbols (Outline)")
+          end
+
+          map("<leader>rn", "<cmd>Lspsaga rename<CR>", "[R]e[n]ame")
+          --map("<leader>ca", "<cmd>Lspsaga code_action<CR>", "[C]ode [A]ction")
+          map("K", "<cmd>Lspsaga hover_doc<CR>", "Hover Documentation")
+
+          map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+          map("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next Diagnostic")
+          map("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Prev Diagnostic")
+          map("<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Cursor Diagnostics")
+
+          -- 하이라이트 유지
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+            local hlgrp = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              buffer = event.buf,
+              group = hlgrp,
+              callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+              buffer = event.buf,
+              group = hlgrp,
+              callback = vim.lsp.buf.clear_references,
+            })
+            -- ✅ 오타 수정: nvim_create_autocmd
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+              callback = function(ev2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = ev2.buf })
+              end,
+            })
+          end
+
+          -- Inlay Hints 토글 (0.9/0.10 호환)
+          local ih = vim.lsp.inlay_hint or (vim.lsp.buf and vim.lsp.buf.inlay_hint)
+          if ih and client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+            map("<leader>th", function()
+              if type(ih) == "table" and ih.is_enabled and ih.enable then
+                local enabled = ih.is_enabled(event.buf)
+                ih.enable(not enabled, { bufnr = event.buf })
+              else
+                -- 0.9 스타일: function(enable, {bufnr=?})
+                local cur = vim.b.inlay_hint_enabled or false
+                ih(not cur, { bufnr = event.buf })
+                vim.b.inlay_hint_enabled = not cur
+              end
+            end, "[T]oggle Inlay [H]ints")
+          end
+
+          -- 워크스페이스 폴더 유틸
+          map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+          map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+          map("<leader>wl", function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          end, "[W]orkspace [L]ist Folders")
+        end,
+      })
+
+      -- cmp capabilities
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+      -- 서버 설정
+      local servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              completion = { callSnippet = "Replace" },
+              runtime = { version = "LuaJIT" },
+              workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
+              diagnostics = { globals = { "vim" }, disable = { "missing-fields" } },
+              format = { enable = false },
+            },
+          },
+        },
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                mccabe = { enabled = false },
+                pylsp_mypy = { enabled = false },
+                pylsp_black = { enabled = false },
+                pylsp_isort = { enabled = false },
+              },
+            },
+          },
+        },
+        ruff = {},
+        jsonls = {},
+        sqlls = {},
+        terraformls = {},
+        yamlls = {},
+        bashls = {},
+        dockerls = {},
+        docker_compose_language_service = {},
+        html = { filetypes = { "html", "twig", "hbs" } },
+      }
+
+      -- Mason ensure
+      local ensure = vim.tbl_keys(servers or {})
+      vim.list_extend(ensure, { "stylua" })
+      require("mason-tool-installer").setup({ ensure_installed = ensure })
+
+      -- 서버 적용 (네이티브 API 있으면 사용, 없으면 lspconfig로)
+      local has_native = (vim.lsp and vim.lsp.config and vim.lsp.enable)
+      local lspconfig = not has_native and require("lspconfig") or nil
+
+      for name, cfg in pairs(servers) do
+        cfg.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cfg.capabilities or {})
+        if has_native then
+          vim.lsp.config(name, cfg)
+          vim.lsp.enable(name)
+        else
+          lspconfig[name].setup(cfg)
+        end
+      end
     end,
   },
 }

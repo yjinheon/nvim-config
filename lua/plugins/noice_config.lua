@@ -14,6 +14,11 @@ return {
         opts = { skip = true }, -- 해당 알림 무시
       })
     end
+    -- Let Lspsaga handle hover; disable Noice's hover UI
+    opts.lsp.hover = vim.tbl_deep_extend("force", opts.lsp.hover or {}, {
+      enabled = false,
+    })
+    silence("No information available")
 
     silence("Failed to run `config` for nvim%-dap")
     -- opts.views = {

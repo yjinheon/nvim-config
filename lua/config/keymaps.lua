@@ -117,11 +117,11 @@ map("n", "<leader>ca", "<cmd>lua require('tiny-code-action').code_action()<CR>")
 --lspsaga
 --map("n", "<C-j>", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 map("n", "K", "<Cmd>Lspsaga hover_doc<CR>", opts)
-map("n", "gx", "<Cmd>Lspsaga code_action<CR>", opts)
-map("n", "gf", "<Cmd>Lspsaga lsp_finder<CR>", opts)
-map("n", "gd", "<Cmd>Lspsaga goto_definition<CR>", opts)
-map("n", "gp", "<Cmd>Lspsaga peek_definition<CR>", opts)
-map("n", "gr", "<Cmd>Lspsaga rename<CR>", opts)
+-- map("n", "gx", "<Cmd>Lspsaga code_action<CR>", opts)
+-- map("n", "gf", "<Cmd>Lspsaga lsp_finder<CR>", opts)
+-- map("n", "gd", "<Cmd>Lspsaga goto_definition<CR>", opts)
+-- map("n", "gp", "<Cmd>Lspsaga peek_definition<CR>", opts)
+-- map("n", "gr", "<Cmd>Lspsaga rename<CR>", opts)
 
 --- FloatermToggle
 map("n", "<F12>", ":FloatermToggle aTerm<CR>", { noremap = true })
