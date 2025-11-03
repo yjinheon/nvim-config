@@ -14,6 +14,16 @@ local bordered_cat_fortune = string.format(
   fortune
 )
 
+local hjkl = [[
+___  ___        ___  ___  __    ___          
+|\  \|\  \      |\  \|\  \|\  \ |\  \         
+\ \  \\\  \     \ \  \ \  \/  /|\ \  \        
+ \ \   __  \  __ \ \  \ \   ___  \ \  \       
+  \ \  \ \  \|\  \\_\  \ \  \\ \  \ \  \____  
+   \ \__\ \__\ \________\ \__\\ \__\ \_______\
+    \|__|\|__|\|________|\|__| \|__|\|_______|
+]]
+
 local mewnvim = [[
   ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
   ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
@@ -127,6 +137,7 @@ local logos = {
              ]],
   bordered_cat_fortune,
   mewnvim,
+  hjkl,
 }
 -- seed random number generator
 math.randomseed(os.time())
