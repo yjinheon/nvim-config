@@ -16,6 +16,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
   },
+
   {
     "rachartier/tiny-code-action.nvim",
     dependencies = {
@@ -34,7 +35,9 @@ return {
       },
     },
     event = "LspAttach",
-    opts = {},
+    opts = {
+      picker = "fzf-lua",
+    },
   },
 
   -- LSP Core
@@ -103,7 +106,7 @@ return {
               group = hlgrp,
               callback = vim.lsp.buf.clear_references,
             })
-            -- ✅ 오타 수정: nvim_create_autocmd
+            -- 오타 수정: nvim_create_autocmd
             vim.api.nvim_create_autocmd("LspDetach", {
               group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
               callback = function(ev2)
@@ -171,7 +174,22 @@ return {
             },
           },
         },
-        ruff = {},
+        ruff = { enabled = true },
+        -- ts_ls
+        ts_ls = {
+          init_options = {
+            plugins = {
+              {
+                name = "@vue/typescript-plugin",
+                location = vim.fn.stdpath("data")
+                  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                languages = { "vue" },
+              },
+            },
+          },
+          filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+        },
+        volar = {},
         jsonls = {},
         sqlls = {},
         terraformls = {},
@@ -182,8 +200,15 @@ return {
         html = { filetypes = { "html", "twig", "hbs" } },
       }
 
-      -- Mason ensure
-      local ensure = vim.tbl_keys(servers or {})
+      -- Mason ensure (패키지 이름 매핑)
+      local mason_map = {
+        volar = "vue-language-server",
+        ts_ls = "typescript-language-server",
+      }
+      local ensure = {}
+      for name, _ in pairs(servers) do
+        table.insert(ensure, mason_map[name] or name)
+      end
       vim.list_extend(ensure, { "stylua" })
       require("mason-tool-installer").setup({ ensure_installed = ensure })
 

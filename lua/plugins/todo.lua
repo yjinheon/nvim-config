@@ -6,7 +6,7 @@ return {
     -- your configuration here
     -- or leave empty to use defaults
     files = { "tasks", "*.plan", "project/**/todo.md", "todo.md" },
-    todo_markers = {
+    todo_states = {
       unchecked = "[ ]",
       checked = "[x]",
     },

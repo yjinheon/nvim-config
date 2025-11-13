@@ -1,11 +1,14 @@
 return {
   {
-    "simrat39/symbols-outline.nvim",
-    keys = { { "<leader>so", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    cmd = "SymbolsOutline",
-    opts = {
-      position = "right",
-    },
+    "hedyhli/outline.nvim",
+    config = function()
+      -- Example mapping to toggle outline
+      vim.keymap.set("n", "<leader>cs", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
+
+      require("outline").setup({
+        -- Your setup opts here (leave empty to use defaults)
+      })
+    end,
   },
   {
     "leath-dub/snipe.nvim",
@@ -33,36 +36,35 @@ return {
   --     })
   --   end,
   -- },
-  -- {
-  --   "stevearc/conform.nvim",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   opts = function()
-  --     local opts = {
-  --       formatters_by_ft = {
-  --         lua = { "stylua" },
-  --         python = { "ruff" },
-  --         javascript = { "prettier" },
-  --         typescript = { "prettier" },
-  --         javascriptreact = { "prettier" },
-  --         typescriptreact = { "prettier" },
-  --         sh = { "shfmt" },
-  --         css = { "prettier" },
-  --         html = { "prettier" },
-  --         json = { "prettier" },
-  --         yaml = { "prettier" },
-  --         markdown = { "prettier" },
-  --         graphql = { "prettier" },
-  --       },
-  --       formatters = {
-  --         prettier = {
-  --           prepend_args = { "--single-quote" },
-  --         },
-  --       },
-  --     }
-  --     return opts
-  --   end,
-  -- },
-  --
+  {
+    "stevearc/conform.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = function()
+      local opts = {
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = { "ruff_organize_imports", "ruff_format" },
+          javascript = { "prettier" },
+          typescript = { "prettier" },
+          javascriptreact = { "prettier" },
+          typescriptreact = { "prettier" },
+          sh = { "shfmt" },
+          css = { "prettier" },
+          html = { "prettier" },
+          json = { "prettier" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          graphql = { "prettier" },
+        },
+        formatters = {
+          prettier = {
+            prepend_args = { "--single-quote" },
+          },
+        },
+      }
+      return opts
+    end,
+  },
   --
   { "cordx56/rustowl", dependencies = { "neovim/nvim-lspconfig" }, lazy = false },
   -- Go forward/backward with square brackets
