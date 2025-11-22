@@ -147,6 +147,13 @@ return {
 
       -- 서버 설정
       local servers = {
+        gopls = {
+          analyses = {
+            unusedparams = true,
+          },
+          staticcheck = true,
+          gofumpt = true,
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -158,10 +165,16 @@ return {
             },
           },
         },
+        pyright = { enabled = false },
+        ruff = { enabled = false },
         pylsp = {
           settings = {
+
             pylsp = {
               plugins = {
+                rope_autoimport = {
+                  enabled = true,
+                },
                 pyflakes = { enabled = false },
                 pycodestyle = { enabled = false },
                 autopep8 = { enabled = false },
@@ -174,7 +187,7 @@ return {
             },
           },
         },
-        ruff = { enabled = true },
+        -- ruff = { enabled = true },
         -- ts_ls
         ts_ls = {
           init_options = {
