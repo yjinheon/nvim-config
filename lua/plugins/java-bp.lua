@@ -33,7 +33,7 @@ return {
           version = "1.63.0",
         },
 
-        -- (선택) Spring Boot LSP 등
+        -- Spring Boot LSP
         jdtls = {
           language_servers = {
             {

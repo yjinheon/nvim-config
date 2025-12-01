@@ -103,11 +103,11 @@ return {
   { "Mofiqul/dracula.nvim" },
   --nord
   { "shaunsingh/nord.nvim" },
-  { "Shatur/neovim-ayu" },
+  -- { "Shatur/neovim-ayu" },
   --kanagawa
-  { "rebelot/kanagawa.nvim" },
+  -- { "rebelot/kanagawa.nvim" },
   --everforest
-  { "sainnhe/everforest" },
+  -- { "sainnhe/everforest" },
   --monokai
   { "polirritmico/monokai-nightasty.nvim" },
   -- nightfox
