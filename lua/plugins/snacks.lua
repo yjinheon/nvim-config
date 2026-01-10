@@ -266,7 +266,7 @@ return {
       },
       sections = {
         { section = "header" },
-        { icon = " ", title = "keymaps", section = "keys", indent = 2, padding = 1 },
+        --{ icon = " ", title = "keymaps", section = "keys", indent = 2, padding = 1 },
         { icon = " ", title = "recent files", section = "recent_files", indent = 2, padding = 1 },
         { icon = " ", title = "projects", section = "projects", indent = 2, padding = 1 },
         { section = "startup" },

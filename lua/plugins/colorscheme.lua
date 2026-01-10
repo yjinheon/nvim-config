@@ -136,7 +136,7 @@ return {
       --      colorscheme = "solarized-osaka",
       --      colorscheme = "doomchad",
       --colorscheme = "nightfox",
-      --      colorscheme = "tokyonight-moon",
+      colorscheme = "tokyonight-moon",
       --colorscheme = "tokyonight-storm",
       --      colorscheme = "morta",
       --colorscheme = "tokyonight-day",
@@ -145,7 +145,7 @@ return {
       --colorscheme = "catppuccin-frappe",
       --colorscheme = "monekai",
       -- colorscheme = "monokai-nightasty", -- or "gruvbox" --catppuccin fr:w
-      colorscheme = "catppuccin",
+      --colorscheme = "catppuccin",
       --colorscheme = "neofusion",
       --colorscheme = "dracula",
       -- colorscheme = "monokai-nightasty",

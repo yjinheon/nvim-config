@@ -60,15 +60,24 @@
     "description": "while loop"
   },
   "for": {
-    "prefix": "for",
+    "prefix": "iter",
     "body": ["for ${1:value} in ${2:iterable}:", "\t${3:pass}"],
     "description": "for loop"
   },
   "for w/ range": {
-    "prefix": "forr",
+    "prefix": "iterr",
     "body": ["for ${1:value} in range($2):", "\t${3:pass}"],
     "description": "for loop that iterates over range of integers"
   },
+  "for w/ enumerate": {
+    "prefix": "iterenum",
+    "body": [
+      "for ${1:index}, ${2:value} in enumerate(${3:iterable}):",
+      "\t${4:pass}"
+    ],
+    "description": "for loop that iterates over range of integers"
+  },
+
   "with": {
     "prefix": "with",
     "body": ["with ${1:expression} as ${2:target}:", "\t${3:pass}"],
