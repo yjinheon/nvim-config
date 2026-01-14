@@ -49,13 +49,12 @@ return {
       { "<leader>vc", "<cmd>VenvSelectCached<cr>" },
     },
   },
-
-  {
-    "keaising/im-select.nvim", -- switch input method automatically
-    config = function()
-      require("im_select").setup({})
-    end,
-  },
+  -- {
+  --   "keaising/im-select.nvim", -- switch input method automatically
+  --   config = function()
+  --     require("im_select").setup({})
+  --   end,
+  -- },
   {
     "numToStr/Comment.nvim",
     keys = {
