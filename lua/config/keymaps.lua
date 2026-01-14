@@ -137,15 +137,15 @@ function RunPythonInSplit()
   -- 절대 경로 사용 (%:p 수정자)
   local file = vim.fn.expand("%:p")
   vim.cmd(split_size .. "split")
-  -- 터미널 종료 후 자동으로 버퍼 닫기 설정
-  vim.cmd("autocmd! TermClose <buffer> bdelete!")
+  -- 터ㅓ미널 종료 후 자동으로 버퍼 닫기 설정
+  -- vim.cmd("autocmd! TermClose <buffer> bdelete!")
   -- vim.cmd("terminal python3  " .. vim.fn.shellescape(file))
   vim.cmd('terminal python3 "' .. file .. '"')
   vim.cmd("startinsert")
 end
 
--- F5 키에 매핑
-map("n", "<F5>", function()
+--  키에 매핑
+map("n", "<F8>", function()
   vim.cmd("w") -- 파일 저장
   RunPythonInSplit()
 end, { noremap = true })
@@ -189,7 +189,7 @@ end, { noremap = true })
 
 -- run node js
 map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
-map("n", "<F8>", "<cmd>KotlinRunMain<CR>", { noremap = true })
+-- map("n", "<F8>", "<cmd>KotlinRunMain<CR>", { noremap = true })
 --map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 
 -- disable copilot

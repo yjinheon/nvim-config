@@ -15,8 +15,8 @@ return {
         html = { "prettier" },
         json = { "prettier" },
         yaml = { "prettier" },
-        markdown = { "" }, -- no formatter
         graphql = { "prettier" },
+        markdown = {},
       },
       formatters = {
         prettier = {
