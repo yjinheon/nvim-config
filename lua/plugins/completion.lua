@@ -10,6 +10,16 @@ return {
       end
 
       local cmp = require("cmp")
+
+      -- Markdown 파일에 대해서만 별도 설정 적용
+      cmp.setup.filetype("markdown", {
+        sources = cmp.config.sources({
+          -- 스니펫(luasnip)을 제외
+          { name = "nvim_lsp" }, -- LSP 추천 (헤더 링크 등)
+          { name = "path" }, -- 파일 경로 자동완성
+          { name = "buffer" }, -- 현재 버퍼 내 단어 추천
+        }),
+      })
       -- local lspkind = require("lspkind")
       --
       -- opts.formatting = {
