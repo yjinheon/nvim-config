@@ -7,6 +7,8 @@ foo.*
 *.log
 data
 .env
+.omc
+.ropeproject/
 
 lazy-lock.json
 lazyvim.json
