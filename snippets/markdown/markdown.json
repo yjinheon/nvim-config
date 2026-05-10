@@ -1,12 +1,19 @@
 {
   "HTML kbd tag": {
-    "prefix": ["k1", "kbd"],
-    "body": ["<kbd>${1:KEY}</kbd>$0"],
+    "prefix": [
+      "k1",
+      "kbd"
+    ],
+    "body": [
+      "<kbd>${1:KEY}</kbd>$0"
+    ],
     "description": "HTML kbd tag"
   },
   "HTML more tag": {
     "prefix": "more",
-    "body": ["<!--more-->"],
+    "body": [
+      "<!--more-->"
+    ],
     "description": "Insert HTML more tag"
   },
   "Centered image": {
@@ -21,12 +28,23 @@
   },
   "Markdown link": {
     "prefix": "link",
-    "body": ["[$1]($2)$0"],
+    "body": [
+      "[$1]($2)$0"
+    ],
     "description": "Insert Markdown link"
   },
   "Markdown header": {
-    "prefix": ["h1", "h2", "h3", "h4", "h5", "h6"],
-    "body": ["$TM_CURRENT_LINE$0"],
+    "prefix": [
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6"
+    ],
+    "body": [
+      "$TM_CURRENT_LINE$0"
+    ],
     "description": "Insert Markdown header (level 1-6)"
   },
   "Clickable details": {
@@ -41,12 +59,32 @@
   },
   "Chinese corner quotes": {
     "prefix": "yh",
-    "body": ["「$1」"],
+    "body": [
+      "「$1」"
+    ],
     "description": "Insert Chinese corner quotes"
   },
   "TL;DR": {
     "prefix": "td",
-    "body": ["tl;dr: $1"],
+    "body": [
+      "tl;dr: $1"
+    ],
     "description": "Insert TL;DR section"
+  },
+  "Obsidian frontmatter": {
+    "prefix": [
+      "fm",
+      "frontmatter"
+    ],
+    "body": [
+      "---",
+      "created: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+      "updated: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+      "tags: [$1]",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "Insert Obsidian frontmatter with created/updated dates"
   }
 }
