@@ -1,52 +1,59 @@
 -- ~/.config/nvim/lua/plugins/java-bulletproof.lua
 return {
-  -- nvim-java: 번들 주입/명령 제공(실행/디버그)
   {
     "nvim-java/nvim-java",
-    ft = "java",
-    priority = 1001,
-    dependencies = {
-      "nvim-java/lua-async-await",
-      "nvim-java/nvim-java-core",
-      "nvim-java/nvim-java-test",
-      "MunifTanjim/nui.nvim",
-      "neovim/nvim-lspconfig",
-    },
     config = function()
-      require("java").setup({
-        jdk = { auto_install = false },
-        root_markers = {
-          "settings.gradle",
-          "settings.gradle.kts",
-          "pom.xml",
-          "build.gradle",
-          "build.gradle.kts",
-          "mvnw",
-          "gradlew",
-          ".git",
-        },
-        java_test = { enable = true, version = "0.43.1" },
-        java_debug_adapter = { enable = true, version = "0.58.2" },
-        lombok = {},
-        spring_boot_tools = {
-          enable = false,
-          version = "1.63.0",
-        },
-
-        -- Spring Boot LSP
-        jdtls = {
-          language_servers = {
-            {
-              name = "spring-boot-language-server",
-              command = { "spring-boot-language-server", "--stdio" },
-              root_patterns = { "pom.xml", "build.gradle", "build.gradle.kts" },
-              filetypes = { "java" },
-            },
-          },
-        },
-      })
+      require("java").setup()
+      vim.lsp.enable("jdtls")
     end,
   },
+  -- nvim-java: 번들 주입/명령 제공(실행/디버그)
+  -- {
+  --   "nvim-java/nvim-java",
+  --   ft = "java",
+  --   priority = 1001,
+  --   dependencies = {
+  --     "nvim-java/lua-async-await",
+  --     "nvim-java/nvim-java-core",
+  --     "nvim-java/nvim-java-test",
+  --     "MunifTanjim/nui.nvim",
+  --     "neovim/nvim-lspconfig",
+  --   },
+  --   config = function()
+  --     require("java").setup({
+  --       jdk = { auto_install = false },
+  --       root_markers = {
+  --         "settings.gradle",
+  --         "settings.gradle.kts",
+  --         "pom.xml",
+  --         "build.gradle",
+  --         "build.gradle.kts",
+  --         "mvnw",
+  --         "gradlew",
+  --         ".git",
+  --       },
+  --       java_test = { enable = true, version = "0.43.1" },
+  --       java_debug_adapter = { enable = true, version = "0.58.2" },
+  --       lombok = {},
+  --       spring_boot_tools = {
+  --         enable = false,
+  --         version = "1.63.0",
+  --       },
+  --
+  --       -- Spring Boot LSP
+  --       jdtls = {
+  --         language_servers = {
+  --           {
+  --             name = "spring-boot-language-server",
+  --             command = { "spring-boot-language-server", "--stdio" },
+  --             root_patterns = { "pom.xml", "build.gradle", "build.gradle.kts" },
+  --             filetypes = { "java" },
+  --           },
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
 
   -- -- lspconfig가 jdtls를 건드리지 못하게 완전 차단
   -- {

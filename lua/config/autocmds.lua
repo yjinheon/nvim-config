@@ -144,3 +144,79 @@ autocmd("FileType", {
   group = overseer,
   desc = "Enter Normal Mode In OverseerList",
 })
+
+local markdown_frontmatter = augroup("MarkdownFrontmatter", { clear = true })
+
+local function today()
+  return os.date("%Y-%m-%dT%H:%M")
+end
+
+
+local function update_markdown_frontmatter()
+  local path = vim.api.nvim_buf_get_name(0)
+  if path == "" or vim.bo.buftype ~= "" then
+    return
+  end
+
+  local vault = vim.fn.expand("~/workspace/astro-blog")
+  if not vim.startswith(vim.fs.normalize(path), vim.fs.normalize(vault) .. "/") then
+    return
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local date = today()
+
+  if #lines == 0 then
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, { "---", "created: " .. date, "updated: " .. date, "---", "" })
+    return
+  end
+
+  if lines[1] ~= "---" then
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, { "---", "created: " .. date, "updated: " .. date, "---", "" })
+    return
+  end
+
+  local closing = nil
+  for i = 2, math.min(#lines, 80) do
+    if lines[i] == "---" then
+      closing = i
+      break
+    end
+  end
+
+  if not closing then
+    return
+  end
+
+  local created_idx = nil
+  local updated_idx = nil
+  for i = 2, closing - 1 do
+    if lines[i]:match("^created:%s*") then
+      created_idx = i
+    elseif lines[i]:match("^updated:%s*") then
+      updated_idx = i
+    end
+  end
+
+  if created_idx then
+    lines[created_idx] = lines[created_idx]:gsub("^created:%s*$", "created: " .. date)
+  else
+    table.insert(lines, closing, "created: " .. date)
+    closing = closing + 1
+  end
+
+  if updated_idx then
+    lines[updated_idx] = "updated: " .. date
+  else
+    table.insert(lines, closing, "updated: " .. date)
+  end
+
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+end
+
+autocmd("BufWritePre", {
+  pattern = "*.md",
+  callback = update_markdown_frontmatter,
+  group = markdown_frontmatter,
+  desc = "Create/update Markdown frontmatter timestamps",
+})

@@ -10,7 +10,7 @@ snip_loader.load({ paths = { "~/.config/nvim/snippets" } })
 -- set clipboard=unnamedplus
 -- themes : get_cursor , get_dropdown, get_ivy
 function GetIncompletedTasks()
-  local todo_path = "~/workspace/astro-blog/para/10.Project"
+  local todo_path = "~/workspace/astro-blog/01.Project"
   require("telescope.builtin").grep_string(require("telescope.themes").get_ivy({
     prompt_title = "Incomplete Tasks",
     -- search = "- \\[ \\]", -- Fixed search term for tasks
