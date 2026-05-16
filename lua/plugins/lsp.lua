@@ -44,7 +44,15 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "mason-org/mason.nvim", config = true },
+      {
+        "mason-org/mason.nvim",
+        opts = {
+          registries = {
+            "github:mason-org/mason-registry",
+            "github:nvim-java/mason-registry",
+          },
+        },
+      },
       "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       {
@@ -210,13 +218,23 @@ return {
         bashls = {},
         dockerls = {},
         docker_compose_language_service = {},
+        clangd = {},
         html = { filetypes = { "html", "twig", "hbs" } },
       }
 
       -- Mason ensure (패키지 이름 매핑)
       local mason_map = {
-        volar = "vue-language-server",
+        bashls = "bash-language-server",
+        docker_compose_language_service = "docker-compose-language-service",
+        dockerls = "dockerfile-language-server",
+        html = "html-lsp",
+        jsonls = "json-lsp",
+        lua_ls = "lua-language-server",
+        pylsp = "python-lsp-server",
+        terraformls = "terraform-ls",
         ts_ls = "typescript-language-server",
+        volar = "vue-language-server",
+        yamlls = "yaml-language-server",
       }
       local ensure = {}
       for name, _ in pairs(servers) do
