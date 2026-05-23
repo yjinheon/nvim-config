@@ -127,43 +127,8 @@ map("n", "K", "<Cmd>Lspsaga hover_doc<CR>", opts)
 map("n", "<F12>", ":FloatermToggle aTerm<CR>", { noremap = true })
 map("t", "<F12>", "<C-\\><C-n>:FloatermToggle aTerm<CR>", { noremap = true })
 
--- run program infile
-
--- Python 파일을 터미널에서 실행하는 함수
-
-function RunPythonInSplit()
-  local win_height = vim.fn.winheight(0)
-  local split_size = math.floor(win_height / 4)
-  -- 절대 경로 사용 (%:p 수정자)
-  local file = vim.fn.expand("%:p")
-  vim.cmd(split_size .. "split")
-  -- 터ㅓ미널 종료 후 자동으로 버퍼 닫기 설정
-  -- vim.cmd("autocmd! TermClose <buffer> bdelete!")
-  -- vim.cmd("terminal python3  " .. vim.fn.shellescape(file))
-  vim.cmd('terminal python3 "' .. file .. '"')
-  vim.cmd("startinsert")
-end
-
---  키에 매핑
 map("n", "<F8>", function()
-  vim.cmd("w") -- 파일 저장
-  RunPythonInSplit()
-end, { noremap = true })
-
--- -- Go 파일을 터미널에서 실행하는 함수
-function RunGoInSplit()
-  local win_height = vim.fn.winheight(0)
-  local split_size = math.floor(win_height / 4)
-  local file = vim.fn.expand("%:p")
-  vim.cmd(split_size .. "split")
-  vim.cmd("autocmd! TermClose <buffer> bdelete!")
-  vim.cmd('terminal go run "' .. file .. '"')
-  vim.cmd("startinsert")
-end
-
-vim.keymap.set("n", "<F6>", function()
-  vim.cmd("w")
-  RunGoInSplit()
+  require("lang.python").run_current_file()
 end, { noremap = true })
 
 -- RunNodeInSplit
@@ -219,27 +184,8 @@ end, { silent = true, desc = "Debug Python Selection" })
 
 --map("n", "<F9>","<cmd>DapToggleBreakpoint()<CR>", { noremap = true }) remap jj to <ESC> map("i", "jj", "<ESC>")
 
-function RunKotlinInSplit()
-  if vim.bo.filetype ~= "kotlin" then
-    print("This is not a Kotlin file.")
-    return
-  end
-
-  vim.cmd("write") -- 파일 저장
-
-  local win_height = vim.fn.winheight(0)
-  local split_size = math.floor(win_height / 4)
-  local file = vim.fn.expand("%:p")
-
-  vim.cmd(split_size .. "split")
-  vim.cmd("autocmd! TermClose <buffer> bdelete!")
-  vim.cmd('terminal kotlinr "' .. file .. '"')
-  vim.cmd("startinsert")
-end
-
 -- map("n", "<F11>", function()
---   vim.cmd("w") -- 파일 저장
---   RunKotlinInSplit()
+--   require("lang.kotlin").run_current_file()
 -- end, { noremap = true })
 --
 --move window

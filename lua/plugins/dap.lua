@@ -59,11 +59,7 @@ local default_config = {
     },
   },
   dap_python = {
-    keys = {
-      { "<F9>", function() require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
-      { "<leader>dpc", function() require("dap-python").test_class() end, desc = "Debug Class", ft = "python" },
-      { "<leader>dps", function() require('dap-python').debug_selection() end, desc = "Debug Selection", ft = "python" }
-    },
+    keys = require("lang.python").dap_keys(),
   },
 }
 
@@ -129,88 +125,14 @@ return {
         "mfussenegger/nvim-dap-python",
         keys = config.dap_python.keys,
         config = function()
-          --          local path = require("mason-registry").get_package("debugpy"):get_install_path()
-          local python = vim.fn.expand("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
-          require("dap-python").setup("uv")
-          --require("dap-python").setup(path .. "/venv/bin/python")
+          require("lang.python").setup_dap()
         end,
-      },
-      {
-
-        "leoluz/nvim-dap-go",
-        config = true,
       },
     },
     opts = {
       setup = {
         kotlin_debug_adapter = function()
-          local dap = require("dap")
-
-          local exepath = vim.fn.exepath("kotlin-debug-adapter")
-          if exepath == "" then
-            exepath =
-              vim.fn.expand("~/.local/share/nvim/mason/packages/kotlin-debug-adapter/adapter/bin/kotlin-debug-adapter")
-          end
-          dap.adapters.kotlin = {
-            type = "executable",
-            command = exepath,
-            -- adapter가 stdout/stderr를 내부 콘솔로 넘겨줘야함
-            args = { "--stdio" },
-            -- options = {
-            --   auto_continue_if_many_stopped = false,
-            -- },
-          }
-
-          dap.configurations.kotlin = {
-            {
-              type = "kotlin",
-              name = "launch - kotlin",
-              request = "launch",
-              -- projectRoot = vim.fn.getcwd(), -- build.gradle
-              mainClass = function()
-                local root = vim.fs.find("src", { path = vim.uv.cwd(), upward = true, stop = vim.env.HOME })[1] or ""
-                local fname = vim.api.nvim_buf_get_name(0)
-                -- src/main/kotlin/websearch/Main.kt -> websearch.MainKt
-                local mc =
-                  fname:gsub(root, ""):gsub("main/kotlin/", ""):gsub("%.kt$", "Kt"):gsub("/", "."):gsub("^%.", "")
-                vim.notify("mainClass=" .. mc)
-                return mc
-              end,
-              projectRoot = "${workspaceFolder}",
-              jsonLogFile = "",
-              cwd = "${workspaceFolder}",
-              console = "integratedTerminal",
-              stopOnEntry = true,
-              enableJsonLogging = false,
-              --vmArgs = "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005",
-              -- projectRoot = (vim.uv or vim.loop).cwd(),
-            },
-            {
-              type = "kotlin",
-              name = "attach - kotlin",
-              request = "attach",
-              --  projectRoot = vim.fn.getcwd(),
-              -- projectRoot = (vim.uv or vim.loop).cwd(),
-              hostName = "127.0.0.1",
-              port = 5005, -- JVM Remote Debug 기본 포트
-              timeout = 30000,
-              stopOnEntry = true,
-            },
-            --            outputMode = "std",
-            console = "integratedTerminal",
-          }
-
-          -- go config
-
-          dap.configurations.go = {
-            {
-              type = "delve",
-              name = "file",
-              request = "launch",
-              program = "${file}",
-              outputMode = "remote",
-            },
-          }
+          require("lang.kotlin").setup_dap()
         end,
       },
     },

@@ -33,13 +33,6 @@
 
 vim.lsp.enable("kotlin_lsp")
 
--- only format . no add or remove imports
--- no foramt on save
--- init.lua 파일에 추가 (Lua 사용 시)
-vim.g.go_fmt_autosave = 0
--- 또는 gopls 설정을 사용하는 경우
-vim.g.go_gopls_gofumpt = 0
-
 vim.opt.conceallevel = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.opt.clipboard = "unnamedplus,unnamed"
