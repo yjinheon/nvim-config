@@ -127,6 +127,10 @@ map("n", "K", "<Cmd>Lspsaga hover_doc<CR>", opts)
 map("n", "<F12>", ":FloatermToggle aTerm<CR>", { noremap = true })
 map("t", "<F12>", "<C-\\><C-n>:FloatermToggle aTerm<CR>", { noremap = true })
 
+map("n", "<F5>", function()
+  require("lang.run").run_current_file()
+end, { noremap = true, desc = "Run current file" })
+
 map("n", "<F8>", function()
   require("lang.python").run_current_file()
 end, { noremap = true })
