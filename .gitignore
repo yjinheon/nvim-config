@@ -7,6 +7,7 @@ foo.*
 *.log
 data
 .env
+sql-runner.json
 .omc
 .ropeproject/
 
