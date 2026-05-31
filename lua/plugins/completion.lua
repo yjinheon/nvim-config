@@ -63,8 +63,8 @@ return {
         --          ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<CR>"] = cmp.mapping({
           i = function(fallback)
-            if cmp.visible() and cmp.get_active_entry() then
-              cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+            if cmp.visible() then
+              cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
             else
               fallback()
             end

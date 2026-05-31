@@ -54,6 +54,23 @@ local function read_file(path)
   return s
 end
 
+local function kotlin_file_facade_name(filepath, content)
+  local jvm_name = content:match('@file:%s*JvmName%s*%(%s*"([^"]+)"%s*%)')
+    or content:match("@file:%s*JvmName%s*%(%s*'([^']+)'%s*%)")
+  if jvm_name and jvm_name ~= "" then
+    return jvm_name
+  end
+
+  local name = vim.fn.fnamemodify(filepath, ":t:r") .. "Kt"
+  name = name:gsub("[^%w_$]", "_")
+
+  if not name:match("^[%a_$]") then
+    name = "_" .. name
+  end
+
+  return name
+end
+
 local function rg_available()
   return vim.fn.executable("rg") == 1
 end
@@ -161,43 +178,13 @@ local function parse_pkg_and_mainclass(filepath)
     end
   end
 
-  local fname = vim.fn.fnamemodify(filepath, ":t:r")
-  local class_name = obj_name or (fname .. "Kt")
+  local class_name = obj_name or kotlin_file_facade_name(filepath, content)
 
   if pkg ~= "" then
     return pkg .. "." .. class_name
   else
     return class_name
   end
-end
-
-local function choose_gradle_task(root)
-  -- Heuristic: prefer bootRun if Spring Boot is applied, else run if application plugin present
-  local build_paths = {
-    root .. "/build.gradle",
-    root .. "/build.gradle.kts",
-    root .. "/settings.gradle",
-    root .. "/settings.gradle.kts",
-  }
-  local blob = ""
-  for _, p in ipairs(build_paths) do
-    local s = read_file(p)
-    if s then
-      blob = blob .. "" .. s
-    end
-  end
-  if blob:find("org%.springframework%.boot") then
-    --return "bootRun"
-    return "run" -- spring boot project여도 그냥 run이 맞음
-  end
-  if
-    blob:find("plugins?%s*{[%w%p%s]-application")
-    or blob:find('apply%s+plugin%s*:%s*"application"')
-    or blob:find("application%s*{")
-  then
-    return "run"
-  end
-  return "run"
 end
 
 local function gradle_exe(root)
@@ -214,21 +201,71 @@ local function shell_escape(s)
   if not s or #s == 0 then
     return ""
   end
-  return string.format("'%s'", s:gsub("'", "'''"))
+  return "'" .. s:gsub("'", "'\\''") .. "'"
+end
+
+local function ensure_gradle_init_script(tmp_dir)
+  ensure_tmp(tmp_dir)
+  local path = tmp_dir .. "/nvim-kotlin-runner.gradle"
+  local script = [[
+allprojects { project ->
+  def configureNvimRun = {
+    if (project.tasks.findByName('nvimRunKotlin') != null) {
+      return
+    }
+
+    def sourceSets = project.extensions.findByName('sourceSets')
+    if (sourceSets == null) {
+      return
+    }
+
+    project.tasks.register('nvimRunKotlin', JavaExec) { task ->
+      group = 'application'
+      description = 'Run a Kotlin main selected by Neovim.'
+      classpath = sourceSets.main.runtimeClasspath
+
+      if (project.hasProperty('nvimMainClass')) {
+        def mc = project.property('nvimMainClass').toString()
+        if (task.hasProperty('mainClass')) {
+          task.mainClass.set(mc)
+        } else {
+          task.main = mc
+        }
+      }
+
+      if (project.hasProperty('nvimArgs')) {
+        def rawArgs = project.property('nvimArgs')?.toString()
+        if (rawArgs) {
+          args rawArgs.split(/\s+/) as List
+        }
+      }
+    }
+  }
+
+  project.plugins.withId('java', configureNvimRun)
+  project.plugins.withId('java-library', configureNvimRun)
+  project.plugins.withId('org.jetbrains.kotlin.jvm', configureNvimRun)
+  project.plugins.withId('org.jetbrains.kotlin.multiplatform', configureNvimRun)
+}
+]]
+  vim.fn.writefile(vim.split(script, "\n", { plain = true }), path)
+  return path
 end
 
 local function build_gradle_command(root, fqcn, program_args)
-  local task = choose_gradle_task(root)
   local g = gradle_exe(root)
   local args_str = table.concat(program_args or {}, " ")
   local has_args = (args_str ~= nil and #args_str > 0)
+  local init_script = ensure_gradle_init_script(
+    (Runner._active_cfg and Runner._active_cfg.temp_dir) or vim.fn.stdpath("data") .. "/kotlin-runner"
+  )
 
-  local cmd = { "cd", shell_escape(root), "&&", g, "-q", task }
+  local cmd = { "cd", shell_escape(root), "&&", g, "-q", "--init-script", shell_escape(init_script), "nvimRunKotlin" }
   if has_args then
-    table.insert(cmd, string.format("--args=%s", shell_escape(args_str)))
+    table.insert(cmd, string.format("-PnvimArgs=%s", shell_escape(args_str)))
   end
   if fqcn and #fqcn > 0 then
-    table.insert(cmd, string.format("-PmainClass=%s", shell_escape(fqcn)))
+    table.insert(cmd, string.format("-PnvimMainClass=%s", shell_escape(fqcn)))
   end
   table.insert(cmd, "--no-daemon")
   return table.concat(cmd, " ")
@@ -301,6 +338,7 @@ end
 function Runner.new(cfg)
   local self = setmetatable({}, Runner)
   self.cfg = cfg
+  Runner._active_cfg = cfg
   self.runs = {} -- main_class -> Run
   self.curr_run = nil
   self.logger = require("local.kotlin-runner.run_logger").new(cfg)

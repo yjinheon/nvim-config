@@ -1,11 +1,45 @@
 local M = {}
 
+local function mason_package_path(name)
+  return vim.fn.stdpath("data") .. "/mason/packages/" .. name
+end
+
+local function first_executable(paths)
+  for _, path in ipairs(paths) do
+    if path and path ~= "" and vim.fn.executable(path) == 1 then
+      return path
+    end
+  end
+  return nil
+end
+
+function M.lsp_server()
+  local mason_kotlin_lsp = mason_package_path("kotlin-lsp")
+  local mason_cmd = first_executable({
+    vim.fn.exepath("intellij-server"),
+    vim.fn.glob(mason_kotlin_lsp .. "/kotlin-server-*/bin/intellij-server", true, true)[1],
+    mason_kotlin_lsp .. "/bin/intellij-server",
+  })
+
+  return {
+    cmd = { mason_cmd or "intellij-server", "--stdio" },
+    root_markers = {
+      "settings.gradle",
+      "settings.gradle.kts",
+      "pom.xml",
+      "build.gradle",
+      "build.gradle.kts",
+      "workspace.json",
+    },
+  }
+end
+
 function M.setup_dap()
   local dap = require("dap")
 
   local exepath = vim.fn.exepath("kotlin-debug-adapter")
   if exepath == "" then
-    exepath = vim.fn.expand("~/.local/share/nvim/mason/packages/kotlin-debug-adapter/adapter/bin/kotlin-debug-adapter")
+    exepath = mason_package_path("kotlin-debug-adapter") .. "/adapter/bin/kotlin-debug-adapter"
   end
 
   dap.adapters.kotlin = {

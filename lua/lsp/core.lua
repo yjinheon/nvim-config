@@ -80,6 +80,7 @@ end
 
 function M.default_servers()
   return vim.tbl_deep_extend("force", require("lang.go").lsp_servers(), {
+    kotlin_lsp = require("lang.kotlin").lsp_server(),
     lua_ls = {
       settings = {
         Lua = {
@@ -145,6 +146,7 @@ function M.mason_package_names(servers)
     dockerls = "dockerfile-language-server",
     html = "html-lsp",
     jsonls = "json-lsp",
+    kotlin_lsp = "kotlin-lsp",
     lua_ls = "lua-language-server",
     pylsp = "python-lsp-server",
     terraformls = "terraform-ls",

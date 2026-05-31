@@ -1,0 +1,38 @@
+{
+  "current": "local_sqlite",
+  "connections": {
+    "local_sqlite": {
+      "driver": "sqlite",
+      "database": "~/tmp/example.sqlite3"
+    },
+    "local_duckdb": {
+      "driver": "duckdb",
+      "database": "~/tmp/example.duckdb"
+    },
+    "warehouse_postgres": {
+      "driver": "postgres",
+      "dsn": "postgresql://user:password@localhost:5432/database"
+    },
+    "local_mysql": {
+      "driver": "mysql",
+      "host": "localhost",
+      "port": 3306,
+      "user": "user",
+      "password": "password",
+      "database": "database"
+    },
+    "local_clickhouse": {
+      "driver": "clickhouse",
+      "host": "localhost",
+      "port": 8123,
+      "username": "default",
+      "password": "",
+      "database": "default",
+      "secure": false
+    },
+    "cloud_clickhouse": {
+      "driver": "clickhouse",
+      "dsn": "https://default:password@example.clickhouse.cloud:8443/default"
+    }
+  }
+}

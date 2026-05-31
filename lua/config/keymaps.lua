@@ -156,9 +156,19 @@ end, { noremap = true })
 --map("n", "<F6>", ":exec '!go run' shellescape(@%, 1)<CR>", { noremap = true })
 --map("n", "<F7>", ":exec '!java' shellescape(@%, 1)<CR>", { noremap = true })
 
--- run node js
-map("n", "<F7>", "<cmd>JavaRunnerRunMain<CR>", { noremap = true })
--- map("n", "<F8>", "<cmd>KotlinRunMain<CR>", { noremap = true })
+-- run main for JVM languages
+map("n", "<F7>", function()
+  local filetype = vim.bo.filetype
+
+  if filetype == "java" then
+    vim.cmd("JavaRunnerRunMain")
+  elseif filetype == "kotlin" then
+    vim.cmd("KotlinRunMain")
+  else
+    vim.notify("No F7 runner configured for filetype: " .. filetype, vim.log.levels.WARN)
+  end
+end, { noremap = true, desc = "Run Java/Kotlin main" })
+
 --map("n", "<F8>", ":exec '!node' shellescape(@%, 1)<CR>", { noremap = true })
 
 -- disable copilot

@@ -151,6 +151,23 @@ local function today()
   return os.date("%Y-%m-%dT%H:%M")
 end
 
+local markdown_frontmatter_dirs = {
+  "~/workspace/astro-blog",
+  "~/workspace/clickhouse/clickhouse-playground-book",
+}
+
+local function is_in_markdown_frontmatter_dir(path)
+  local normalized_path = vim.fs.normalize(path)
+
+  for _, dir in ipairs(markdown_frontmatter_dirs) do
+    local normalized_dir = vim.fs.normalize(vim.fn.expand(dir))
+    if normalized_path == normalized_dir or vim.startswith(normalized_path, normalized_dir .. "/") then
+      return true
+    end
+  end
+
+  return false
+end
 
 local function update_markdown_frontmatter()
   local path = vim.api.nvim_buf_get_name(0)
@@ -158,8 +175,7 @@ local function update_markdown_frontmatter()
     return
   end
 
-  local vault = vim.fn.expand("~/workspace/astro-blog")
-  if not vim.startswith(vim.fs.normalize(path), vim.fs.normalize(vault) .. "/") then
+  if not is_in_markdown_frontmatter_dir(path) then
     return
   end
 

@@ -40,6 +40,9 @@ case "$ext" in
     rustc "$file" -o "$out"
     "$out"
     ;;
+  sql)
+    uv run "$(dirname "$0")/sql-runner.py" "$file"
+    ;;
   py)
     python3 "$file"
     ;;

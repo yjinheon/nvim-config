@@ -29,10 +29,6 @@
 --   ["Find Subword Under"] = "<C-d>",
 -- }
 
--- enable kotlin lsp
-
-vim.lsp.enable("kotlin_lsp")
-
 vim.opt.conceallevel = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.opt.clipboard = "unnamedplus,unnamed"
